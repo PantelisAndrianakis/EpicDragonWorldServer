@@ -1,81 +1,40 @@
 ﻿/**
  * Author: Pantelis Andrianakis
- * Date: May 5th 2019
+ * Date: March 12th 2020
  */
 public class ItemHolder
 {
-    private readonly int itemId;
-    private readonly ItemSlot itemSlot;
-    private readonly ItemType itemType;
-    private readonly bool stackable;
-    private readonly bool tradable;
-    private readonly int stamina;
-    private readonly int strength;
-    private readonly int dexterity;
-    private readonly int intelect;
-    private readonly SkillHolder skillHolder;
+    private readonly ItemTemplateHolder itemTemplate;
+    private int quantity = 1;
+    private int enchant = 0;
 
-    public ItemHolder(int itemId, ItemSlot itemSlot, ItemType itemType, bool stackable, bool tradable, int stamina, int strength, int dexterity, int intelect, SkillHolder skillHolder)
+    public ItemHolder(ItemTemplateHolder itemTemplate)
     {
-        this.itemId = itemId;
-        this.itemSlot = itemSlot;
-        this.itemType = itemType;
-        this.stackable = stackable;
-        this.tradable = tradable;
-        this.stamina = stamina;
-        this.strength = strength;
-        this.dexterity = dexterity;
-        this.intelect = intelect;
-        this.skillHolder = skillHolder;
+        this.itemTemplate = itemTemplate;
     }
 
-    public int GetItemId()
+    public ItemTemplateHolder GetTemplate()
     {
-        return itemId;
+        return itemTemplate;
     }
 
-    public ItemSlot GetItemSlot()
+    public void SetQuantity(int quantity)
     {
-        return itemSlot;
+        this.quantity = quantity;
     }
 
-    public ItemType GetItemType()
+    public int GetQuantity()
     {
-        return itemType;
+        return quantity;
     }
 
-    public bool IsStackable()
+    public void SetEnchant(int enchant)
     {
-        return stackable;
+        this.enchant = enchant;
     }
 
-    public bool IsTradable()
+    public int GetEnchant()
     {
-        return tradable;
-    }
-
-    public int GetSTA()
-    {
-        return stamina;
-    }
-
-    public int GetSTR()
-    {
-        return strength;
-    }
-
-    public int GetDEX()
-    {
-        return dexterity;
-    }
-
-    public int GetINT()
-    {
-        return intelect;
-    }
-
-    public SkillHolder GetSkillHolder()
-    {
-        return skillHolder;
+        return enchant;
     }
 }

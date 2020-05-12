@@ -12,7 +12,7 @@ public class Inventory
     private static readonly string RESTORE_INVENTORY = "SELECT * FROM character_items WHERE owner=@owner";
     private static readonly string DELETE_INVENTORY = "DELETE FROM character_items WHERE owner=@owner";
     private static readonly string STORE_ITEM_START = "INSERT INTO character_items VALUES ";
-    private readonly Dictionary<int, int> items = new Dictionary<int, int>();
+    private readonly Dictionary<int, ItemHolder> items = new Dictionary<int, ItemHolder>();
 
     public Inventory(string ownerName)
     {
@@ -27,7 +27,10 @@ public class Inventory
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    items.Add(reader.GetInt32("slot_id"), reader.GetInt32("item_id"));
+                    ItemHolder itemHolder = new ItemHolder(ItemData.GetItemTemplate(reader.GetInt32("item_id")));
+                    itemHolder.SetQuantity(reader.GetInt32("quantity"));
+                    itemHolder.SetEnchant(reader.GetInt32("enchant"));
+                    items.Add(reader.GetInt32("slot_id"), itemHolder);
                 }
                 con.Close();
             }
@@ -64,14 +67,18 @@ public class Inventory
 
         // Prepare query.
         StringBuilder query = new StringBuilder(STORE_ITEM_START);
-        foreach (KeyValuePair<int, int> item in items)
+        foreach (KeyValuePair<int, ItemHolder> item in items)
         {
             query.Append("('");
             query.Append(ownerName);
             query.Append("',");
             query.Append(item.Key);
             query.Append(",");
-            query.Append(item.Value);
+            query.Append(item.Value.GetTemplate().GetItemId());
+            query.Append(",");
+            query.Append(item.Value.GetQuantity());
+            query.Append(",");
+            query.Append(item.Value.GetEnchant());
             query.Append(")");
             query.Append(itemCount-- == 1 ? ";" : ",");
         }
@@ -92,20 +99,29 @@ public class Inventory
         // items.Clear();
     }
 
-    public int GetSlot(int slotId)
+    public ItemHolder GetSlot(int slotId)
+    {
+        if (!items.ContainsKey(slotId))
+        {
+            return null;
+        }
+        return items[slotId];
+    }
+
+    public int GetItemIdBySlot(int slotId)
     {
         if (!items.ContainsKey(slotId))
         {
             return 0;
         }
-        return items[slotId];
+        return items[slotId].GetTemplate().GetItemId();
     }
 
     public void SetSlot(int slotId, int itemId)
     {
         lock (items)
         {
-            items.Add(slotId, itemId);
+            items.Add(slotId, new ItemHolder(ItemData.GetItemTemplate(itemId)));
         }
     }
 
@@ -117,7 +133,7 @@ public class Inventory
         }
     }
 
-    public Dictionary<int, int> GetItems()
+    public Dictionary<int, ItemHolder> GetItems()
     {
         return items;
     }

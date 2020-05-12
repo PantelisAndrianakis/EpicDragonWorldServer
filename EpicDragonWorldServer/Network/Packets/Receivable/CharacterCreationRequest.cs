@@ -196,7 +196,7 @@ public class CharacterCreationRequest
                 query.Append("('");
                 query.Append(characterName);
                 query.Append("',");
-                ItemHolder itemHolder = ItemData.GetItemHolder(itemId);
+                ItemTemplateHolder itemHolder = ItemData.GetItemTemplate(itemId);
                 ItemSlot itemSlot = itemHolder.GetItemSlot();
                 if (itemHolder.GetItemType() == ItemType.EQUIP && !usedEquipableSlots.Contains(itemSlot))
                 {

@@ -18,13 +18,13 @@ public class PlayerInformation : SendablePacket
         WriteInt(player.GetHairColor());
         WriteInt(player.GetSkinColor());
         WriteInt(player.GetEyeColor());
-        WriteInt(player.GetInventory().GetSlot(1)); // Head
-        WriteInt(player.GetInventory().GetSlot(2)); // Chest
-        WriteInt(player.GetInventory().GetSlot(3)); // Legs
-        WriteInt(player.GetInventory().GetSlot(4)); // Hands
-        WriteInt(player.GetInventory().GetSlot(5)); // Feet
-        WriteInt(player.GetInventory().GetSlot(6)); // Left hand
-        WriteInt(player.GetInventory().GetSlot(7)); // Right hand
+        WriteInt(player.GetInventory().GetItemIdBySlot(1)); // Head
+        WriteInt(player.GetInventory().GetItemIdBySlot(2)); // Chest
+        WriteInt(player.GetInventory().GetItemIdBySlot(3)); // Legs
+        WriteInt(player.GetInventory().GetItemIdBySlot(4)); // Hands
+        WriteInt(player.GetInventory().GetItemIdBySlot(5)); // Feet
+        WriteInt(player.GetInventory().GetItemIdBySlot(6)); // Left hand
+        WriteInt(player.GetInventory().GetItemIdBySlot(7)); // Right hand
         WriteFloat(player.GetLocation().GetX());
         WriteFloat(player.GetLocation().GetY());
         WriteFloat(player.GetLocation().GetZ());

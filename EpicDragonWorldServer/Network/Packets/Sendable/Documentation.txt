@@ -11,3 +11,4 @@ PacketId: Name
 10: LocationUpdate
 11: AnimatorUpdate
 12: ChatResult
+13: PlayerInventoryUpdate

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 public class ItemData
 {
     private static protected string RESTORE_ITEMS = "SELECT * FROM items";
-    private static protected Dictionary<int, ItemHolder> ITEMS = new Dictionary<int, ItemHolder>();
+    private static protected Dictionary<int, ItemTemplateHolder> ITEMS = new Dictionary<int, ItemTemplateHolder>();
 
     public static void Load()
     {
@@ -33,7 +33,7 @@ public class ItemData
                 }
                 else
                 {
-                    ITEMS.Add(itemId, new ItemHolder(itemId, (ItemSlot)Enum.Parse(typeof(ItemSlot), reader.GetString("slot")), (ItemType)Enum.Parse(typeof(ItemType), reader.GetString("type")), reader.GetBoolean("stackable"), reader.GetBoolean("tradable"), reader.GetInt32("stamina"), reader.GetInt32("strength"), reader.GetInt32("dexterity"), reader.GetInt32("intelect"), skillHolder));
+                    ITEMS.Add(itemId, new ItemTemplateHolder(itemId, (ItemSlot)Enum.Parse(typeof(ItemSlot), reader.GetString("slot")), (ItemType)Enum.Parse(typeof(ItemType), reader.GetString("type")), reader.GetBoolean("stackable"), reader.GetBoolean("tradable"), reader.GetInt32("stamina"), reader.GetInt32("strength"), reader.GetInt32("dexterity"), reader.GetInt32("intelect"), skillHolder));
                 }
             }
             con.Close();
@@ -46,7 +46,7 @@ public class ItemData
         LogManager.Log("ItemData: Loaded " + ITEMS.Count + " items.");
     }
 
-    public static ItemHolder GetItemHolder(int itemId)
+    public static ItemTemplateHolder GetItemTemplate(int itemId)
     {
         return ITEMS[itemId];
     }
