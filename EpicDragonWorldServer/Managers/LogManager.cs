@@ -8,14 +8,15 @@ using System.Threading.Tasks;
  */
 public class LogManager
 {
+    public static readonly string LOG_DATE_FORMAT = "{0:dd/MM HH:mm:ss}";
+
+    private static readonly string LOG_FILE_NAME_FORMAT = "{0:yyyy-MM-dd}";
     private static readonly string LOG_PATH = "Log" + Path.DirectorySeparatorChar;
     private static readonly string LOG_FILE_CONSOLE = "Console ";
     private static readonly string LOG_FILE_WORLD = "World ";
     private static readonly string LOG_FILE_CHAT = "Chat ";
     private static readonly string LOG_FILE_ADMIN = "Admin ";
     private static readonly string LOG_FILE_EXT = ".txt";
-    private static readonly string LOG_DATE_FORMAT = "{0:dd/MM HH:mm:ss}";
-    private static readonly string LOG_FILE_NAME_FORMAT = "{0:yyyy-MM-dd}";
 
     public static void Init()
     {

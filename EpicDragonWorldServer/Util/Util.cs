@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 /**
  * Author: Pantelis Andrianakis
@@ -9,7 +10,7 @@ public class Util
     public static void PrintSection(string section)
     {
         section = "=[ " + section + " ]";
-        while (section.Length < 62)
+        while (section.Length < Console.WindowWidth - LogManager.LOG_DATE_FORMAT.Length)
         {
             section = "-" + section;
         }
