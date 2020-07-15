@@ -209,6 +209,7 @@ public class CharacterCreationRequest
                 }
                 query.Append(",");
                 query.Append(itemId);
+                query.Append(",1,0"); // quantity, enchant
                 query.Append(")");
                 query.Append(itemCount-- == 1 ? ";" : ",");
             }
