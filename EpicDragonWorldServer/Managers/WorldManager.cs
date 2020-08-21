@@ -134,14 +134,14 @@ public class WorldManager
             List<WorldObject> objects = regions[i].GetObjects();
             for (int j = 0; j < objects.Count; j++)
             {
-                WorldObject wo = objects[j];
-                if (wo.GetObjectId() == obj.GetObjectId())
+                WorldObject nearby = objects[j];
+                if (nearby.GetObjectId() == obj.GetObjectId())
                 {
                     continue;
                 }
-                if (obj.CalculateDistance(wo) < MOVEMENT_BROADCAST_RADIUS)
+                if (obj.CalculateDistance(nearby) < MOVEMENT_BROADCAST_RADIUS)
                 {
-                    result.Add(wo);
+                    result.Add(nearby);
                 }
             }
         }
@@ -157,18 +157,18 @@ public class WorldManager
             List<WorldObject> objects = regions[i].GetObjects();
             for (int j = 0; j < objects.Count; j++)
             {
-                WorldObject wo = objects[j];
-                if (!wo.IsPlayer())
+                WorldObject nearby = objects[j];
+                if (!nearby.IsPlayer())
                 {
                     continue;
                 }
-                if (wo.GetObjectId() == obj.GetObjectId())
+                if (nearby.GetObjectId() == obj.GetObjectId())
                 {
                     continue;
                 }
-                if (obj.CalculateDistance(wo) < MOVEMENT_BROADCAST_RADIUS)
+                if (obj.CalculateDistance(nearby) < MOVEMENT_BROADCAST_RADIUS)
                 {
-                    result.Add(wo.AsPlayer());
+                    result.Add(nearby.AsPlayer());
                 }
             }
         }

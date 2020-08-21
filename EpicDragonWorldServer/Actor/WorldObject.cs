@@ -65,14 +65,14 @@ public class WorldObject
                         List<WorldObject> objects = regions[i].GetObjects();
                         for (int j = 0; j < objects.Count; j++)
                         {
-                            WorldObject wo = objects[j];
-                            if (wo == this)
+                            WorldObject nearby = objects[j];
+                            if (nearby == this)
                             {
                                 continue;
                             }
-                            if (wo.IsPlayer())
+                            if (nearby.IsPlayer())
                             {
-                                wo.AsPlayer().ChannelSend(deleteObject);
+                                nearby.AsPlayer().ChannelSend(deleteObject);
                             }
                         }
                     }
@@ -90,12 +90,12 @@ public class WorldObject
                 List<WorldObject> objects = WorldManager.GetVisibleObjects(this);
                 for (int i = 0; i < objects.Count; i++)
                 {
-                    WorldObject obj = objects[i];
-                    if (!obj.IsNpc())
+                    WorldObject nearby = objects[i];
+                    if (!nearby.IsNpc())
                     {
                         continue;
                     }
-                    AsPlayer().ChannelSend(new NpcInformation(obj.AsNpc()));
+                    AsPlayer().ChannelSend(new NpcInformation(nearby.AsNpc()));
                 }
             }
         }
