@@ -18,7 +18,9 @@ public class GameServer
         // Keep start time for later.
         DateTime serverLoadStart = DateTime.Now;
 
-        LogManager.Init();
+        // Initialize async write to disk task.
+        Task.Run(() => LogManager.Init());
+
         Config.Load();
         DatabaseManager.Init();
         WorldManager.Init();
