@@ -36,7 +36,7 @@ public class WorldManager
         {
             for (int z = 0; z < REGION_SIZE_Z; z++)
             {
-                List<RegionHolder> surroundingRegions = new List<RegionHolder>();
+                List<RegionHolder> surroundingRegions = new List<RegionHolder>(9);
                 for (int sx = x - 1; sx <= (x + 1); sx++)
                 {
                     for (int sz = z - 1; sz <= (z + 1); sz++)
@@ -47,7 +47,7 @@ public class WorldManager
                         }
                     }
                 }
-                REGIONS[x][z].SetSurroundingRegions(surroundingRegions.ToArray());
+                REGIONS[x][z].SetSurroundingRegions(surroundingRegions);
             }
         }
 

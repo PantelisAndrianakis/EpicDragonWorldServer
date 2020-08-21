@@ -10,7 +10,7 @@ public class RegionHolder
     private readonly int x;
     private readonly int z;
     private readonly ConcurrentDictionary<long, WorldObject> objects = new ConcurrentDictionary<long, WorldObject>();
-    private RegionHolder[] surroundingRegions;
+    private List<RegionHolder> surroundingRegions;
 
     public RegionHolder(int x, int z)
     {
@@ -18,12 +18,12 @@ public class RegionHolder
         this.z = z;
     }
 
-    public void SetSurroundingRegions(RegionHolder[] regions)
+    public void SetSurroundingRegions(List<RegionHolder> regions)
     {
         surroundingRegions = regions;
 
         // Make sure that this region is always first to improve bulk operations.
-        for (int i = 0; i < surroundingRegions.Length; i++)
+        for (int i = 0; i < surroundingRegions.Count; i++)
         {
             if (surroundingRegions[i] == this)
             {
@@ -35,7 +35,7 @@ public class RegionHolder
         }
     }
 
-    public RegionHolder[] GetSurroundingRegions()
+    public List<RegionHolder> GetSurroundingRegions()
     {
         return surroundingRegions;
     }
