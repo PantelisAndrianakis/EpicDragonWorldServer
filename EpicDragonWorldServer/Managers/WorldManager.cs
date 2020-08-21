@@ -111,11 +111,12 @@ public class WorldManager
         if (obj.IsPlayer())
         {
             ((IDictionary<long, Player>)PLAYER_OBJECTS).Remove(obj.GetObjectId());
+
             // Store player.
             obj.AsPlayer().StoreMe();
 
             // Log world access.
-            if (Config.LOG_WORLD)
+            if (Config.LOG_WORLD && obj.AsPlayer().GetClient().GetActiveChar() != null)
             {
                 LogManager.LogWorld("Player [" + obj.AsPlayer().GetName() + "] Account [" + obj.AsPlayer().GetClient().GetAccountName() + "] Left the world.");
             }
@@ -209,8 +210,8 @@ public class WorldManager
         Player player = client.GetActiveChar();
         if (player != null)
         {
-            client.SetActiveChar(null);
             RemoveObject(player);
+            client.SetActiveChar(null);
         }
 
         // Remove from list.

@@ -7,5 +7,6 @@ public class ExitWorldRequest
     public ExitWorldRequest(GameClient client, ReceivablePacket packet)
     {
         WorldManager.RemoveObject(client.GetActiveChar());
+        client.SetActiveChar(null);
     }
 }

@@ -23,7 +23,7 @@ public class LogManager
     private static readonly List<string> WORLD_LOG_CACHE = new List<string>();
     private static readonly List<string> CHAT_LOG_CACHE = new List<string>();
     private static readonly List<string> ADMIN_LOG_CACHE = new List<string>();
-    private static readonly int TASK_DELAY = 5000;
+    private static readonly int WRITE_TASK_DELAY = 5000;
 
     public static void Init()
     {
@@ -143,7 +143,7 @@ public class LogManager
                 removeList.Clear();
 
                 // Delay.
-                await Task.Delay(TASK_DELAY);
+                await Task.Delay(WRITE_TASK_DELAY);
             }
         });
     }
