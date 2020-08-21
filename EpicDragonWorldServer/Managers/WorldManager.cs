@@ -209,6 +209,7 @@ public class WorldManager
         Player player = client.GetActiveChar();
         if (player != null)
         {
+            client.SetActiveChar(null);
             RemoveObject(player);
         }
 
