@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -52,23 +53,26 @@ public class WorldObject
             if (region != null)
             {
                 // Remove this object from the region.
-                region.RemoveObject(objectId);
+                region.RemoveObject(this);
 
                 // Broadcast change to players left behind when teleporting.
                 if (isTeleporting)
                 {
                     DeleteObject deleteObject = new DeleteObject(this);
-                    foreach (RegionHolder nearbyRegion in region.GetSurroundingRegions())
+                    List<RegionHolder> regions = region.GetSurroundingRegions();
+                    for (int i = 0; i < regions.Count; i++)
                     {
-                        foreach (WorldObject obj in region.GetObjects())
+                        List<WorldObject> objects = regions[i].GetObjects();
+                        for (int j = 0; j < objects.Count; j++)
                         {
-                            if (obj == this)
+                            WorldObject wo = objects[j];
+                            if (wo == this)
                             {
                                 continue;
                             }
-                            if (obj.IsPlayer())
+                            if (wo.IsPlayer())
                             {
-                                obj.AsPlayer().ChannelSend(deleteObject);
+                                wo.AsPlayer().ChannelSend(deleteObject);
                             }
                         }
                     }
@@ -83,8 +87,10 @@ public class WorldObject
             // TODO: Exclude known NPCs?
             if (IsPlayer())
             {
-                foreach (WorldObject obj in WorldManager.GetVisibleObjects(this))
+                List<WorldObject> objects = WorldManager.GetVisibleObjects(this);
+                for (int i = 0; i < objects.Count; i++)
                 {
+                    WorldObject obj = objects[i];
                     if (!obj.IsNpc())
                     {
                         continue;
@@ -112,8 +118,10 @@ public class WorldObject
 
         // Broadcast location to nearby players after teleporting.
         LocationUpdate locationUpdate = new LocationUpdate(this);
-        foreach (Player nearby in WorldManager.GetVisiblePlayers(this))
+        List<Player> players = WorldManager.GetVisiblePlayers(this);
+        for (int i = 0; i < players.Count; i++)
         {
+            Player nearby = players[i];
             if (nearby.IsPlayer())
             {
                 nearby.AsPlayer().ChannelSend(locationUpdate);
@@ -133,14 +141,17 @@ public class WorldObject
     public void DeleteMe()
     {
         // Remove from region.
-        region.RemoveObject(objectId);
+        region.RemoveObject(this);
 
         // Broadcast NPC deletion.
         DeleteObject delete = new DeleteObject(this);
-        foreach (RegionHolder nearbyRegion in region.GetSurroundingRegions())
+        List<RegionHolder> regions = region.GetSurroundingRegions();
+        for (int i = 0; i < regions.Count; i++)
         {
-            foreach (WorldObject nearby in nearbyRegion.GetObjects())
+            List<WorldObject> objects = regions[i].GetObjects();
+            for (int j = 0; j < objects.Count; j++)
             {
+                WorldObject nearby = objects[j];
                 if (nearby != null && nearby.IsPlayer())
                 {
                     nearby.AsPlayer().ChannelSend(delete);

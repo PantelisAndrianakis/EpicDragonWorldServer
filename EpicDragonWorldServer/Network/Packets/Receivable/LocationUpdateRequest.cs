@@ -1,4 +1,6 @@
-﻿/**
+﻿using System.Collections.Generic;
+
+/**
  * Author: Pantelis Andrianakis
  * Date: November 7th 2018
  */
@@ -38,9 +40,10 @@ public class LocationUpdateRequest
 
         // Broadcast movement.
         LocationUpdate locationUpdate = new LocationUpdate(player);
-        foreach (Player nearby in WorldManager.GetVisiblePlayers(player))
+        List<Player> players = WorldManager.GetVisiblePlayers(player);
+        for (int i = 0; i < players.Count; i++)
         {
-            nearby.ChannelSend(locationUpdate);
+            players[i].ChannelSend(locationUpdate);
         }
     }
 }

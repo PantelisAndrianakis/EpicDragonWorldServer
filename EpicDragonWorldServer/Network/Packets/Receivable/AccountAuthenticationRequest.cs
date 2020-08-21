@@ -32,9 +32,9 @@ public class AccountAuthenticationRequest
         }
 
         // Replace illegal characters.
-        foreach (char c in Util.ILLEGAL_CHARACTERS)
+        for (int i = 0; i < Util.ILLEGAL_CHARACTERS.Length; i++)
         {
-            accountName = accountName.Replace(c, '\'');
+            accountName = accountName.Replace(Util.ILLEGAL_CHARACTERS[i], '\'');
         }
 
         // Account name checks.

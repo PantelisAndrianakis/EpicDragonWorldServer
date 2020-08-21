@@ -42,9 +42,9 @@ public class CharacterCreationRequest
         int eyeColor = packet.ReadInt();
 
         // Replace illegal characters.
-        foreach (char c in Util.ILLEGAL_CHARACTERS)
+        for (int i = 0; i < Util.ILLEGAL_CHARACTERS.Length; i++)
         {
-            characterName = characterName.Replace(c, '\'');
+            characterName = characterName.Replace(Util.ILLEGAL_CHARACTERS[i], '\'');
         }
 
         // Name character checks.

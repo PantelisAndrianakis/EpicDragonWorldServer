@@ -95,18 +95,16 @@ public class CharacterDeletionRequest
         }
 
         // Order remaining character slots.
-        byte counter = 0;
-        foreach (string characterName in characterNames)
+        for (int i = 0; i < characterNames.Count; i++)
         {
-            counter++;
             try
             {
                 MySqlConnection con = DatabaseManager.GetConnection();
                 MySqlCommand cmd = new MySqlCommand(CHARACTER_SLOT_UPDATE_QUERY, con);
-                cmd.Parameters.AddWithValue("slot", counter);
-                cmd.Parameters.AddWithValue("selected", ((counter == 1) && (slot == 1)) || (counter == (slot - 1)) ? 1 : 0);
+                cmd.Parameters.AddWithValue("slot", i);
+                cmd.Parameters.AddWithValue("selected", ((i == 1) && (slot == 1)) || (i == (slot - 1)) ? 1 : 0);
                 cmd.Parameters.AddWithValue("account", client.GetAccountName());
-                cmd.Parameters.AddWithValue("name", characterName);
+                cmd.Parameters.AddWithValue("name", characterNames[i]);
                 cmd.ExecuteNonQuery();
                 con.Close();
             }

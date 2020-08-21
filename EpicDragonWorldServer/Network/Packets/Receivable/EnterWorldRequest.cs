@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 /**
  * Author: Pantelis Andrianakis
@@ -33,8 +34,10 @@ public class EnterWorldRequest
     {
         // Send and receive visible object information.
         PlayerInformation playerInfo = new PlayerInformation(player);
-        foreach (Player nearby in WorldManager.GetVisiblePlayers(player))
+        List<Player> players = WorldManager.GetVisiblePlayers(player);
+        for (int i = 0; i < players.Count; i++)
         {
+            Player nearby = players[i];
             // Send the information to the current player.
             player.ChannelSend(new PlayerInformation(nearby));
             // Send information to the other player as well.
@@ -42,8 +45,10 @@ public class EnterWorldRequest
         }
 
         // Send nearby NPC information.
-        foreach (WorldObject nearby in WorldManager.GetVisibleObjects(player))
+        List<WorldObject> objects = WorldManager.GetVisibleObjects(player);
+        for (int i = 0; i < objects.Count; i++)
         {
+            WorldObject nearby = objects[i];
             if (!nearby.IsNpc())
             {
                 continue;

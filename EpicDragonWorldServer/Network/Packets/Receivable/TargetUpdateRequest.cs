@@ -1,4 +1,6 @@
-﻿/**
+﻿using System.Collections.Generic;
+
+/**
  * Author: Pantelis Andrianakis
  * Date: November 29th 2019
  */
@@ -20,8 +22,10 @@ public class TargetUpdateRequest
         }
 
         // Find target WorldObject.
-        foreach (WorldObject obj in WorldManager.GetVisibleObjects(player))
+        List<WorldObject> objects = WorldManager.GetVisibleObjects(player);
+        for (int i = 0; i < objects.Count; i++)
         {
+            WorldObject obj = objects[i];
             if (obj != null && obj.GetObjectId() == targetObjectId)
             {
                 player.SetTarget(obj);

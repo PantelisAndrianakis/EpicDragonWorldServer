@@ -108,8 +108,9 @@ public class CharacterSelectionInfoResult : SendablePacket
         // Send the data.
         WriteShort(2); // Packet id.
         WriteByte(characterList.Count);
-        foreach (CharacterDataHolder characterData in characterList)
+        for (int i = 0; i < characterList.Count; i++)
         {
+            CharacterDataHolder characterData = characterList[i];
             WriteString(characterData.GetName());
             WriteByte(characterData.GetSlot());
             WriteByte(characterData.IsSelected() ? 1 : 0);

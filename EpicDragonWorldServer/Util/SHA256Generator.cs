@@ -15,9 +15,9 @@ public class SHA256Generator
 
         // Convert byte array to hex string.
         string result = "";
-        foreach (byte b in hash)
+        for (int i = 0; i < hash.Length; i++)
         {
-            result += b.ToString("x2");
+            result += hash[i].ToString("x2");
         }
 
         // Return the result.

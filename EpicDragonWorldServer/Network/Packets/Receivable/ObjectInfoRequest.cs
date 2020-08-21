@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 /**
  * Author: Pantelis Andrianakis
@@ -14,8 +15,10 @@ public class ObjectInfoRequest
         // Get the acting player.
         Player player = client.GetActiveChar();
         // Send the information.
-        foreach (WorldObject obj in WorldManager.GetVisibleObjects(player))
+        List<WorldObject> objects = WorldManager.GetVisibleObjects(player);
+        for (int i = 0; i < objects.Count; i++)
         {
+            WorldObject obj = objects[i];
             if (obj.GetObjectId() == objectId)
             {
                 if (obj.IsPlayer())

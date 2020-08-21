@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 
 /**
  * Author: Pantelis Andrianakis
@@ -43,9 +44,10 @@ public class SpawnCommand
         // Broadcast NPC information.
         NpcInformation info = new NpcInformation(npc);
         player.ChannelSend(info);
-        foreach (Player nearby in WorldManager.GetVisiblePlayers(player))
+        List<Player> players = WorldManager.GetVisiblePlayers(player);
+        for (int i = 0; i < players.Count; i++)
         {
-            nearby.ChannelSend(info);
+            players[i].ChannelSend(info);
         }
 
         // Send player success message.

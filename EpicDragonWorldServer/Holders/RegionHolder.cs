@@ -1,5 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 /**
  * Author: Pantelis Andrianakis
@@ -9,7 +8,7 @@ public class RegionHolder
 {
     private readonly int x;
     private readonly int z;
-    private readonly ConcurrentDictionary<long, WorldObject> objects = new ConcurrentDictionary<long, WorldObject>();
+    private readonly List<WorldObject> objects = new List<WorldObject>();
     private List<RegionHolder> surroundingRegions;
 
     public RegionHolder(int x, int z)
@@ -42,19 +41,24 @@ public class RegionHolder
 
     public void AddObject(WorldObject obj)
     {
-        long objectId = obj.GetObjectId();
-        RemoveObject(objectId);
-        objects.TryAdd(objectId, obj);
+        lock (objects)
+        {
+            objects.Remove(obj);
+            objects.Add(obj);
+        }
     }
 
-    public void RemoveObject(long objectId)
+    public void RemoveObject(WorldObject obj)
     {
-        ((IDictionary<long, WorldObject>)objects).Remove(objectId);
+        lock (objects)
+        {
+            objects.Remove(obj);
+        }
     }
 
-    public ICollection<WorldObject> GetObjects()
+    public List<WorldObject> GetObjects()
     {
-        return objects.Values;
+        return objects;
     }
 
     public int GetX()

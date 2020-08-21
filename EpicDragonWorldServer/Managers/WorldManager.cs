@@ -101,9 +101,10 @@ public class WorldManager
     public static void RemoveObject(WorldObject obj)
     {
         // Broadcast deletion to nearby players.
-        foreach (Player player in GetVisiblePlayers(obj))
+        List<Player> players = GetVisiblePlayers(obj);
+        for (int i = 0; i < players.Count; i++)
         {
-            player.ChannelSend(new DeleteObject(obj));
+            players[i].ChannelSend(new DeleteObject(obj));
         }
 
         // Remove from list and take necessary actions.
@@ -120,16 +121,19 @@ public class WorldManager
             }
         }
 
-        obj.GetRegion().RemoveObject(obj.GetObjectId());
+        obj.GetRegion().RemoveObject(obj);
     }
 
     public static List<WorldObject> GetVisibleObjects(WorldObject obj)
     {
         List<WorldObject> result = new List<WorldObject>();
-        foreach (RegionHolder region in obj.GetRegion().GetSurroundingRegions())
+        List<RegionHolder> regions = obj.GetRegion().GetSurroundingRegions();
+        for (int i = 0; i < regions.Count; i++)
         {
-            foreach (WorldObject wo in region.GetObjects())
+            List<WorldObject> objects = regions[i].GetObjects();
+            for (int j = 0; j < objects.Count; j++)
             {
+                WorldObject wo = objects[j];
                 if (wo.GetObjectId() == obj.GetObjectId())
                 {
                     continue;
@@ -146,10 +150,13 @@ public class WorldManager
     public static List<Player> GetVisiblePlayers(WorldObject obj)
     {
         List<Player> result = new List<Player>();
-        foreach (RegionHolder region in obj.GetRegion().GetSurroundingRegions())
+        List<RegionHolder> regions = obj.GetRegion().GetSurroundingRegions();
+        for (int i = 0; i < regions.Count; i++)
         {
-            foreach (WorldObject wo in region.GetObjects())
+            List<WorldObject> objects = regions[i].GetObjects();
+            for (int j = 0; j < objects.Count; j++)
             {
+                WorldObject wo = objects[j];
                 if (!wo.IsPlayer())
                 {
                     continue;
@@ -169,8 +176,9 @@ public class WorldManager
 
     public static Player GetPlayerByName(string name)
     {
-        foreach (Player player in PLAYER_OBJECTS.Values)
+        for (int i = 0; i < PLAYER_OBJECTS.Count; i++)
         {
+            Player player = PLAYER_OBJECTS[i];
             if (player.GetName().ToLowerInvariant().Equals(name.ToLowerInvariant()))
             {
                 return player;
@@ -213,8 +221,9 @@ public class WorldManager
 
     public static GameClient GetClientByAccountName(string accountName)
     {
-        foreach (GameClient client in ONLINE_CLIENTS)
+        for (int i = 0; i < ONLINE_CLIENTS.Count; i++)
         {
+            GameClient client = ONLINE_CLIENTS[i];
             if (client.GetAccountName().Equals(accountName))
             {
                 return client;

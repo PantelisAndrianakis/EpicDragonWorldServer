@@ -1,4 +1,6 @@
-﻿/**
+﻿using System.Collections.Generic;
+
+/**
  * Author: Pantelis Andrianakis
  * Date: February 4th 2019
  */
@@ -19,9 +21,10 @@ public class AnimatorUpdateRequest
 
         // Broadcast movement.
         AnimatorUpdate animatorUpdate = new AnimatorUpdate(player.GetObjectId(), velocityX, velocityZ, triggerJump, isInWater, isGrounded);
-        foreach (Player nearby in WorldManager.GetVisiblePlayers(player))
+        List<Player> players = WorldManager.GetVisiblePlayers(player);
+        for (int i = 0; i < players.Count; i++)
         {
-            nearby.ChannelSend(animatorUpdate);
+            players[i].ChannelSend(animatorUpdate);
         }
     }
 }

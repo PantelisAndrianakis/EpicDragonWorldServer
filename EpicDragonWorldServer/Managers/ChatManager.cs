@@ -1,4 +1,6 @@
-﻿/**
+﻿using System.Collections.Generic;
+
+/**
  * Author: Pantelis Andrianakis
  * Date: November 7th 2018
  */
@@ -51,9 +53,10 @@ public class ChatManager
         else // Normal message.
         {
             sender.ChannelSend(new ChatResult(CHAT_TYPE_NORMAL, sender.GetName(), message));
-            foreach (Player player in WorldManager.GetVisiblePlayers(sender))
+            List<Player> players = WorldManager.GetVisiblePlayers(sender);
+            for (int i = 0; i < players.Count; i++)
             {
-                player.ChannelSend(new ChatResult(CHAT_TYPE_NORMAL, sender.GetName(), message));
+                players[i].ChannelSend(new ChatResult(CHAT_TYPE_NORMAL, sender.GetName(), message));
             }
             // Log chat.
             if (Config.LOG_CHAT)
