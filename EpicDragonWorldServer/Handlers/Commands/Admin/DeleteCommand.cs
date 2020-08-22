@@ -38,6 +38,7 @@ public class DeleteCommand
             sb.Append(" ");
             sb.Append(npcLocation);
             LogManager.LogAdmin(sb.ToString());
+            sb.Clear();
         }
 
         // Delete NPC.
@@ -45,7 +46,6 @@ public class DeleteCommand
 
         // Send player success message.
         int npcId = npc.GetNpcHolder().GetNpcId();
-        sb.Clear();
         sb.Append("You have deleted ");
         sb.Append(npcId);
         sb.Append(" from ");

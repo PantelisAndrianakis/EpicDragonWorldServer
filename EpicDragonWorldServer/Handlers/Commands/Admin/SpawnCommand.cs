@@ -45,6 +45,7 @@ public class SpawnCommand
             sb.Append(" at ");
             sb.Append(npcLocation);
             LogManager.LogAdmin(sb.ToString());
+            sb.Clear();
         }
 
         // Spawn NPC.
@@ -60,7 +61,6 @@ public class SpawnCommand
         }
 
         // Send player success message.
-        sb.Clear();
         sb.Append("You have spawned ");
         sb.Append(npcId);
         sb.Append(" at ");
