@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 /**
@@ -15,7 +14,7 @@ public class WorldManager
     private static readonly int REGION_SIZE_Z = (int)(Config.WORLD_MAXIMUM_Z / REGION_RADIUS);
     private static readonly RegionHolder[][] REGIONS = new RegionHolder[REGION_SIZE_X][];
     private static readonly List<GameClient> ONLINE_CLIENTS = new List<GameClient>();
-    private static readonly ConcurrentDictionary<long, Player> PLAYER_OBJECTS = new ConcurrentDictionary<long, Player>();
+    private static readonly List<Player> PLAYER_OBJECTS = new List<Player>();
 
     public static void Init()
     {
@@ -81,13 +80,16 @@ public class WorldManager
     {
         if (obj.IsPlayer())
         {
-            if (!PLAYER_OBJECTS.Values.Contains(obj.AsPlayer()))
+            if (!PLAYER_OBJECTS.Contains(obj.AsPlayer()))
             {
                 lock (ONLINE_CLIENTS)
                 {
                     ONLINE_CLIENTS.Add(obj.AsPlayer().GetClient());
                 }
-                PLAYER_OBJECTS.TryAdd(obj.GetObjectId(), obj.AsPlayer());
+                lock (PLAYER_OBJECTS)
+                {
+                    PLAYER_OBJECTS.Add(obj.AsPlayer());
+                }
 
                 // Log world access.
                 if (Config.LOG_WORLD)
@@ -110,7 +112,10 @@ public class WorldManager
         // Remove from list and take necessary actions.
         if (obj.IsPlayer())
         {
-            ((IDictionary<long, Player>)PLAYER_OBJECTS).Remove(obj.GetObjectId());
+            lock (PLAYER_OBJECTS)
+            {
+                PLAYER_OBJECTS.Remove(obj.AsPlayer());
+            }
 
             // Store player.
             obj.AsPlayer().StoreMe();
