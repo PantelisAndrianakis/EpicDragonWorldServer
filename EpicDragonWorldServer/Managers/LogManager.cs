@@ -41,7 +41,6 @@ public class LogManager
         {
             DateTime currentTime;
             StreamWriter writer;
-            string fileName;
             int writeCount;
 
             while (true)
@@ -53,8 +52,7 @@ public class LogManager
                 writeCount = CONSOLE_LOG_CACHE.Count;
                 if (writeCount > 0)
                 {
-                    fileName = GetFileName(LOG_FILE_CONSOLE, currentTime);
-                    using (writer = File.AppendText(fileName))
+                    using (writer = File.AppendText(GetFileName(LOG_FILE_CONSOLE, currentTime)))
                     {
                         for (int i = 0; i < writeCount; i++)
                         {
@@ -75,8 +73,7 @@ public class LogManager
                 writeCount = WORLD_LOG_CACHE.Count;
                 if (writeCount > 0)
                 {
-                    fileName = GetFileName(LOG_FILE_WORLD, currentTime);
-                    using (writer = File.AppendText(fileName))
+                    using (writer = File.AppendText(GetFileName(LOG_FILE_WORLD, currentTime)))
                     {
                         for (int i = 0; i < writeCount; i++)
                         {
@@ -97,8 +94,7 @@ public class LogManager
                 writeCount = CHAT_LOG_CACHE.Count;
                 if (writeCount > 0)
                 {
-                    fileName = GetFileName(LOG_FILE_CHAT, currentTime);
-                    using (writer = File.AppendText(fileName))
+                    using (writer = File.AppendText(GetFileName(LOG_FILE_CHAT, currentTime)))
                     {
                         for (int i = 0; i < writeCount; i++)
                         {
@@ -119,8 +115,7 @@ public class LogManager
                 writeCount = ADMIN_LOG_CACHE.Count;
                 if (writeCount > 0)
                 {
-                    fileName = GetFileName(LOG_FILE_ADMIN, currentTime);
-                    using (writer = File.AppendText(fileName))
+                    using (writer = File.AppendText(GetFileName(LOG_FILE_ADMIN, currentTime)))
                     {
                         for (int i = 0; i < writeCount; i++)
                         {
