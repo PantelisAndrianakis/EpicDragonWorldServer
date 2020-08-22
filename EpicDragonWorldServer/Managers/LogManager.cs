@@ -23,6 +23,9 @@ public class LogManager
     private static readonly List<string> WORLD_LOG_CACHE = new List<string>();
     private static readonly List<string> CHAT_LOG_CACHE = new List<string>();
     private static readonly List<string> ADMIN_LOG_CACHE = new List<string>();
+    private static readonly List<DateTime> WORLD_DATE_CACHE = new List<DateTime>();
+    private static readonly List<DateTime> CHAT_DATE_CACHE = new List<DateTime>();
+    private static readonly List<DateTime> ADMIN_DATE_CACHE = new List<DateTime>();
     private static readonly int WRITE_TASK_DELAY = 1000;
 
     public static void Init()
@@ -39,6 +42,7 @@ public class LogManager
         // Repeating task for writing logs to disk.
         await Task.Run(async () =>
         {
+            StringBuilder sb = new StringBuilder();
             DateTime currentTime;
             StreamWriter writer;
             int writeCount;
@@ -74,13 +78,19 @@ public class LogManager
                     {
                         for (int i = 0; i < writeCount; i++)
                         {
-                            writer.WriteLine(WORLD_LOG_CACHE[i]);
+                            sb.Clear();
+                            sb.Append("[");
+                            sb.Append(string.Format(LOG_DATE_FORMAT, WORLD_DATE_CACHE[i]));
+                            sb.Append("] ");
+                            sb.Append(WORLD_LOG_CACHE[i]);
+                            writer.WriteLine(sb.ToString());
                         }
                     }
                     // Remove from cache.
                     lock (WORLD_LOG_CACHE)
                     {
                         WORLD_LOG_CACHE.RemoveRange(0, writeCount);
+                        WORLD_DATE_CACHE.RemoveRange(0, writeCount);
                     }
                 }
 
@@ -92,13 +102,19 @@ public class LogManager
                     {
                         for (int i = 0; i < writeCount; i++)
                         {
-                            writer.WriteLine(CHAT_LOG_CACHE[i]);
+                            sb.Clear();
+                            sb.Append("[");
+                            sb.Append(string.Format(LOG_DATE_FORMAT, CHAT_DATE_CACHE[i]));
+                            sb.Append("] ");
+                            sb.Append(CHAT_LOG_CACHE[i]);
+                            writer.WriteLine(sb.ToString());
                         }
                     }
                     // Remove from cache.
                     lock (CHAT_LOG_CACHE)
                     {
                         CHAT_LOG_CACHE.RemoveRange(0, writeCount);
+                        CHAT_DATE_CACHE.RemoveRange(0, writeCount);
                     }
                 }
 
@@ -110,13 +126,19 @@ public class LogManager
                     {
                         for (int i = 0; i < writeCount; i++)
                         {
-                            writer.WriteLine(ADMIN_LOG_CACHE[i]);
+                            sb.Clear();
+                            sb.Append("[");
+                            sb.Append(string.Format(LOG_DATE_FORMAT, ADMIN_DATE_CACHE[i]));
+                            sb.Append("] ");
+                            sb.Append(ADMIN_LOG_CACHE[i]);
+                            writer.WriteLine(sb.ToString());
                         }
                     }
                     // Remove from cache.
                     lock (ADMIN_LOG_CACHE)
                     {
                         ADMIN_LOG_CACHE.RemoveRange(0, writeCount);
+                        ADMIN_DATE_CACHE.RemoveRange(0, writeCount);
                     }
                 }
 
@@ -146,10 +168,10 @@ public class LogManager
     public static void Log(string message)
     {
         // Format message with date.
-        DateTime currentTime = DateTime.Now;
+        DateTime date = DateTime.Now;
         StringBuilder sb = new StringBuilder();
         sb.Append("[");
-        sb.Append(string.Format(LOG_DATE_FORMAT, currentTime));
+        sb.Append(string.Format(LOG_DATE_FORMAT, date));
         sb.Append("] ");
         sb.Append(message);
         message = sb.ToString();
@@ -166,54 +188,39 @@ public class LogManager
 
     public static void LogWorld(string message)
     {
-        // Format message with date.
-        DateTime currentTime = DateTime.Now;
-        StringBuilder sb = new StringBuilder();
-        sb.Append("[");
-        sb.Append(string.Format(LOG_DATE_FORMAT, currentTime));
-        sb.Append("] ");
-        sb.Append(message);
-        message = sb.ToString();
+        // Keep current date.
+        DateTime date = DateTime.Now;
 
-        // Cache message for write to file task.
+        // Cache date with message for write to file task.
         lock (WORLD_LOG_CACHE)
         {
+            WORLD_DATE_CACHE.Add(date);
             WORLD_LOG_CACHE.Add(message);
         }
     }
 
     public static void LogChat(string message)
     {
-        // Format message with date.
-        DateTime currentTime = DateTime.Now;
-        StringBuilder sb = new StringBuilder();
-        sb.Append("[");
-        sb.Append(string.Format(LOG_DATE_FORMAT, currentTime));
-        sb.Append("] ");
-        sb.Append(message);
-        message = sb.ToString();
+        // Keep current date.
+        DateTime date = DateTime.Now;
 
-        // Cache message for write to file task.
+        // Cache date with message for write to file task.
         lock (CHAT_LOG_CACHE)
         {
+            CHAT_DATE_CACHE.Add(date);
             CHAT_LOG_CACHE.Add(message);
         }
     }
 
     public static void LogAdmin(string message)
     {
-        // Format message with date.
-        DateTime currentTime = DateTime.Now;
-        StringBuilder sb = new StringBuilder();
-        sb.Append("[");
-        sb.Append(string.Format(LOG_DATE_FORMAT, currentTime));
-        sb.Append("] ");
-        sb.Append(message);
-        message = sb.ToString();
+        // Keep current date.
+        DateTime date = DateTime.Now;
 
-        // Cache message for write to file task.
+        // Cache date with message for write to file task.
         lock (ADMIN_LOG_CACHE)
         {
+            ADMIN_DATE_CACHE.Add(date);
             ADMIN_LOG_CACHE.Add(message);
         }
     }
