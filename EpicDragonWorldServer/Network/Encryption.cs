@@ -7,15 +7,17 @@
  */
 public class Encryption
 {
+    private static readonly RijndaelManaged CIPHER = new RijndaelManaged();
+    private static readonly ICryptoTransform ENCRYPTOR = CIPHER.CreateEncryptor(Config.ENCRYPTION_SECRET_KEYWORD, Config.ENCRYPTION_PRIVATE_PASSWORD);
+    private static readonly ICryptoTransform DECRYPTOR = CIPHER.CreateDecryptor(Config.ENCRYPTION_SECRET_KEYWORD, Config.ENCRYPTION_PRIVATE_PASSWORD);
+
     public static byte[] Encrypt(byte[] bytes)
     {
-        RijndaelManaged cipher = new RijndaelManaged();
-        return cipher.CreateEncryptor(Config.ENCRYPTION_SECRET_KEYWORD, Config.ENCRYPTION_PRIVATE_PASSWORD).TransformFinalBlock(bytes, 0, bytes.Length);
+        return ENCRYPTOR.TransformFinalBlock(bytes, 0, bytes.Length);
     }
 
     public static byte[] Decrypt(byte[] bytes)
     {
-        RijndaelManaged cipher = new RijndaelManaged();
-        return cipher.CreateDecryptor(Config.ENCRYPTION_SECRET_KEYWORD, Config.ENCRYPTION_PRIVATE_PASSWORD).TransformFinalBlock(bytes, 0, bytes.Length);
+        return DECRYPTOR.TransformFinalBlock(bytes, 0, bytes.Length);
     }
 }
