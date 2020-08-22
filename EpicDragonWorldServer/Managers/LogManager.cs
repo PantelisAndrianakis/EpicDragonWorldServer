@@ -62,10 +62,7 @@ public class LogManager
                     // Remove from cache.
                     lock (CONSOLE_LOG_CACHE)
                     {
-                        for (int i = writeCount - 1; i >= 0; i--)
-                        {
-                            CONSOLE_LOG_CACHE.RemoveAt(i);
-                        }
+                        CONSOLE_LOG_CACHE.RemoveRange(0, writeCount);
                     }
                 }
 
@@ -83,10 +80,7 @@ public class LogManager
                     // Remove from cache.
                     lock (WORLD_LOG_CACHE)
                     {
-                        for (int i = writeCount - 1; i >= 0; i--)
-                        {
-                            WORLD_LOG_CACHE.RemoveAt(i);
-                        }
+                        WORLD_LOG_CACHE.RemoveRange(0, writeCount);
                     }
                 }
 
@@ -104,10 +98,7 @@ public class LogManager
                     // Remove from cache.
                     lock (CHAT_LOG_CACHE)
                     {
-                        for (int i = writeCount - 1; i >= 0; i--)
-                        {
-                            CHAT_LOG_CACHE.RemoveAt(i);
-                        }
+                        CHAT_LOG_CACHE.RemoveRange(0, writeCount);
                     }
                 }
 
@@ -125,10 +116,7 @@ public class LogManager
                     // Remove from cache.
                     lock (ADMIN_LOG_CACHE)
                     {
-                        for (int i = writeCount - 1; i >= 0; i--)
-                        {
-                            ADMIN_LOG_CACHE.RemoveAt(i);
-                        }
+                        ADMIN_LOG_CACHE.RemoveRange(0, writeCount);
                     }
                 }
 
