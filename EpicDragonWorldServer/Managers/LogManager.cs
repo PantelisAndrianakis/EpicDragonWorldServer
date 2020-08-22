@@ -23,7 +23,7 @@ public class LogManager
     private static readonly List<string> WORLD_LOG_CACHE = new List<string>();
     private static readonly List<string> CHAT_LOG_CACHE = new List<string>();
     private static readonly List<string> ADMIN_LOG_CACHE = new List<string>();
-    private static readonly int WRITE_TASK_DELAY = 5000;
+    private static readonly int WRITE_TASK_DELAY = 1000;
 
     public static void Init()
     {
@@ -39,108 +39,103 @@ public class LogManager
         // Repeating task for writing logs to disk.
         await Task.Run(async () =>
         {
-            List<string> removeList = new List<string>();
             DateTime currentTime;
             StreamWriter writer;
             string fileName;
-            string message;
+            int writeCount;
 
             while (true)
             {
                 // Update time needed for file name format.
                 currentTime = DateTime.Now;
 
-                // Console messages.
-                fileName = GetFileName(LOG_FILE_CONSOLE, currentTime);
-                for (int i = 0; i < CONSOLE_LOG_CACHE.Count; i++)
+                // Append to "log\Console yyyy-MM-dd.txt" file.
+                writeCount = CONSOLE_LOG_CACHE.Count;
+                if (writeCount > 0)
                 {
-                    message = CONSOLE_LOG_CACHE[i];
-                    // Append to "log\Console yyyy-MM-dd.txt" file.
+                    fileName = GetFileName(LOG_FILE_CONSOLE, currentTime);
                     using (writer = File.AppendText(fileName))
                     {
-                        writer.WriteLine(message);
+                        for (int i = 0; i < writeCount; i++)
+                        {
+                            writer.WriteLine(CONSOLE_LOG_CACHE[i]);
+                        }
                     }
-                    // Add to remove list.
-                    removeList.Add(message);
-                }
-                // Remove from list.
-                lock (CONSOLE_LOG_CACHE)
-                {
-                    for (int i = 0; i < removeList.Count; i++)
+                    // Remove from cache.
+                    lock (CONSOLE_LOG_CACHE)
                     {
-                        CONSOLE_LOG_CACHE.Remove(removeList[i]);
+                        for (int i = writeCount - 1; i >= 0; i--)
+                        {
+                            CONSOLE_LOG_CACHE.RemoveAt(i);
+                        }
                     }
                 }
-                removeList.Clear();
 
-                // World messages.
-                fileName = GetFileName(LOG_FILE_WORLD, currentTime);
-                for (int i = 0; i < WORLD_LOG_CACHE.Count; i++)
+                // Append to "log\World yyyy-MM-dd.txt" file.
+                writeCount = WORLD_LOG_CACHE.Count;
+                if (writeCount > 0)
                 {
-                    message = WORLD_LOG_CACHE[i];
-                    // Append to "log\World yyyy-MM-dd.txt" file.
+                    fileName = GetFileName(LOG_FILE_WORLD, currentTime);
                     using (writer = File.AppendText(fileName))
                     {
-                        writer.WriteLine(message);
+                        for (int i = 0; i < writeCount; i++)
+                        {
+                            writer.WriteLine(WORLD_LOG_CACHE[i]);
+                        }
                     }
-                    // Add to remove list.
-                    removeList.Add(message);
-                }
-                // Remove from list.
-                lock (WORLD_LOG_CACHE)
-                {
-                    for (int i = 0; i < removeList.Count; i++)
+                    // Remove from cache.
+                    lock (WORLD_LOG_CACHE)
                     {
-                        WORLD_LOG_CACHE.Remove(removeList[i]);
+                        for (int i = writeCount - 1; i >= 0; i--)
+                        {
+                            WORLD_LOG_CACHE.RemoveAt(i);
+                        }
                     }
                 }
-                removeList.Clear();
 
-                // Chat messages.
-                fileName = GetFileName(LOG_FILE_CHAT, currentTime);
-                for (int i = 0; i < CHAT_LOG_CACHE.Count; i++)
+                // Append to "log\Chat yyyy-MM-dd.txt" file.
+                writeCount = CHAT_LOG_CACHE.Count;
+                if (writeCount > 0)
                 {
-                    message = CHAT_LOG_CACHE[i];
-                    // Append to "log\Chat yyyy-MM-dd.txt" file.
+                    fileName = GetFileName(LOG_FILE_CHAT, currentTime);
                     using (writer = File.AppendText(fileName))
                     {
-                        writer.WriteLine(message);
+                        for (int i = 0; i < writeCount; i++)
+                        {
+                            writer.WriteLine(CHAT_LOG_CACHE[i]);
+                        }
                     }
-                    // Add to remove list.
-                    removeList.Add(message);
-                }
-                // Remove from list.
-                lock (CHAT_LOG_CACHE)
-                {
-                    for (int i = 0; i < removeList.Count; i++)
+                    // Remove from cache.
+                    lock (CHAT_LOG_CACHE)
                     {
-                        CHAT_LOG_CACHE.Remove(removeList[i]);
+                        for (int i = writeCount - 1; i >= 0; i--)
+                        {
+                            CHAT_LOG_CACHE.RemoveAt(i);
+                        }
                     }
                 }
-                removeList.Clear();
 
-                // Admin messages.
-                fileName = GetFileName(LOG_FILE_ADMIN, currentTime);
-                for (int i = 0; i < ADMIN_LOG_CACHE.Count; i++)
+                // Append to "log\Admin yyyy-MM-dd.txt" file.
+                writeCount = ADMIN_LOG_CACHE.Count;
+                if (writeCount > 0)
                 {
-                    message = ADMIN_LOG_CACHE[i];
-                    // Append to "log\Admin yyyy-MM-dd.txt" file.
+                    fileName = GetFileName(LOG_FILE_ADMIN, currentTime);
                     using (writer = File.AppendText(fileName))
                     {
-                        writer.WriteLine(message);
+                        for (int i = 0; i < writeCount; i++)
+                        {
+                            writer.WriteLine(ADMIN_LOG_CACHE[i]);
+                        }
                     }
-                    // Add to remove list.
-                    removeList.Add(message);
-                }
-                // Remove from list.
-                lock (ADMIN_LOG_CACHE)
-                {
-                    for (int i = 0; i < removeList.Count; i++)
+                    // Remove from cache.
+                    lock (ADMIN_LOG_CACHE)
                     {
-                        ADMIN_LOG_CACHE.Remove(removeList[i]);
+                        for (int i = writeCount - 1; i >= 0; i--)
+                        {
+                            ADMIN_LOG_CACHE.RemoveAt(i);
+                        }
                     }
                 }
-                removeList.Clear();
 
                 // Delay.
                 await Task.Delay(WRITE_TASK_DELAY);
