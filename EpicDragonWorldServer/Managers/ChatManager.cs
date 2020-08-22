@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 /**
  * Author: Pantelis Andrianakis
@@ -61,7 +62,12 @@ public class ChatManager
             // Log chat.
             if (Config.LOG_CHAT)
             {
-                LogManager.LogChat("[" + sender.GetName() + "] " + message);
+                StringBuilder sb = new StringBuilder();
+                sb.Append("[");
+                sb.Append(sender.GetName());
+                sb.Append("] ");
+                sb.Append(message);
+                LogManager.LogChat(sb.ToString());
             }
         }
     }

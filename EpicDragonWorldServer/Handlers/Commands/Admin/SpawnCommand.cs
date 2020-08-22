@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 /**
  * Author: Pantelis Andrianakis
@@ -33,9 +34,17 @@ public class SpawnCommand
         // Log admin activity.
         LocationHolder playerLocation = player.GetLocation();
         LocationHolder npcLocation = new LocationHolder(playerLocation.GetX(), playerLocation.GetY(), playerLocation.GetZ(), playerLocation.GetHeading());
+        StringBuilder sb = new StringBuilder();
         if (Config.LOG_ADMIN)
         {
-            LogManager.LogAdmin(player.GetName() + " used command /spawn " + npcId + " " + respawnDelay + " at " + npcLocation);
+            sb.Append(player.GetName());
+            sb.Append(" used command /spawn ");
+            sb.Append(npcId);
+            sb.Append(" ");
+            sb.Append(respawnDelay);
+            sb.Append(" at ");
+            sb.Append(npcLocation);
+            LogManager.LogAdmin(sb.ToString());
         }
 
         // Spawn NPC.
@@ -51,7 +60,12 @@ public class SpawnCommand
         }
 
         // Send player success message.
-        ChatManager.SendSystemMessage(player, "You have spawned " + npcId + " at " + npcLocation);
+        sb.Clear();
+        sb.Append("You have spawned ");
+        sb.Append(npcId);
+        sb.Append(" at ");
+        sb.Append(npcLocation);
+        ChatManager.SendSystemMessage(player, sb.ToString());
 
         // Store in database.
         try

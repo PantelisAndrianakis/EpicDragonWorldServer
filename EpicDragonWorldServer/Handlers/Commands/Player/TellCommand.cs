@@ -1,4 +1,6 @@
-﻿/**
+﻿using System.Text;
+
+/**
  * Author: Pantelis Andrianakis
  * Date: November 29th 2019
  */
@@ -28,7 +30,14 @@ public class TellCommand
             // Log chat.
             if (Config.LOG_CHAT)
             {
-                LogManager.LogChat("[" + sender.GetName() + "] to [" + receiver.GetName() + "] " + message);
+                StringBuilder sb = new StringBuilder();
+                sb.Append("[");
+                sb.Append(sender.GetName());
+                sb.Append("] to [");
+                sb.Append(receiver.GetName());
+                sb.Append("] ");
+                sb.Append(message);
+                LogManager.LogChat(sb.ToString());
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿/**
+﻿using System.Text;
+
+/**
  * Author: Pantelis Andrianakis
  * Date: November 29th 2019
  */
@@ -9,6 +11,13 @@ public class LocCommand
         LocationHolder location = player.GetLocation();
 
         // Send player success message.
-        ChatManager.SendSystemMessage(player, "Your location is " + location.GetX() + " " + location.GetZ() + " " + location.GetY());
+        StringBuilder sb = new StringBuilder();
+        sb.Append("Your location is ");
+        sb.Append(location.GetX());
+        sb.Append(" ");
+        sb.Append(location.GetZ());
+        sb.Append(" ");
+        sb.Append(location.GetY());
+        ChatManager.SendSystemMessage(player, sb.ToString());
     }
 }

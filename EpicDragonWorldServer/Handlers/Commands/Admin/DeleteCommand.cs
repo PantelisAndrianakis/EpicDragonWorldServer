@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Text;
 
 /**
  * Author: Pantelis Andrianakis
@@ -28,9 +29,15 @@ public class DeleteCommand
         // Log admin activity.
         SpawnHolder npcSpawn = npc.GetSpawnHolder();
         LocationHolder npcLocation = npcSpawn.GetLocation();
+        StringBuilder sb = new StringBuilder();
         if (Config.LOG_ADMIN)
         {
-            LogManager.LogAdmin(player.GetName() + " used command /delete " + npc + " " + npcLocation);
+            sb.Append(player.GetName());
+            sb.Append(" used command /delete ");
+            sb.Append(npc);
+            sb.Append(" ");
+            sb.Append(npcLocation);
+            LogManager.LogAdmin(sb.ToString());
         }
 
         // Delete NPC.
@@ -38,7 +45,12 @@ public class DeleteCommand
 
         // Send player success message.
         int npcId = npc.GetNpcHolder().GetNpcId();
-        ChatManager.SendSystemMessage(player, "You have deleted " + npcId + " from " + npcLocation);
+        sb.Clear();
+        sb.Append("You have deleted ");
+        sb.Append(npcId);
+        sb.Append(" from ");
+        sb.Append(npcLocation);
+        ChatManager.SendSystemMessage(player, sb.ToString());
 
         // Store in database.
         try
