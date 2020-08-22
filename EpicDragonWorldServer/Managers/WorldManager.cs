@@ -84,13 +84,13 @@ public class WorldManager
 
             if (!PLAYER_OBJECTS.Contains(player))
             {
-                lock (ONLINE_CLIENTS)
-                {
-                    ONLINE_CLIENTS.Add(player.GetClient());
-                }
                 lock (PLAYER_OBJECTS)
                 {
                     PLAYER_OBJECTS.Add(player);
+                }
+                lock (ONLINE_CLIENTS)
+                {
+                    ONLINE_CLIENTS.Add(player.GetClient());
                 }
 
                 // Log world access.
