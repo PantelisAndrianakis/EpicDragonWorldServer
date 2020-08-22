@@ -80,21 +80,23 @@ public class WorldManager
     {
         if (obj.IsPlayer())
         {
-            if (!PLAYER_OBJECTS.Contains(obj.AsPlayer()))
+            Player player = obj.AsPlayer();
+
+            if (!PLAYER_OBJECTS.Contains(player))
             {
                 lock (ONLINE_CLIENTS)
                 {
-                    ONLINE_CLIENTS.Add(obj.AsPlayer().GetClient());
+                    ONLINE_CLIENTS.Add(player.GetClient());
                 }
                 lock (PLAYER_OBJECTS)
                 {
-                    PLAYER_OBJECTS.Add(obj.AsPlayer());
+                    PLAYER_OBJECTS.Add(player);
                 }
 
                 // Log world access.
                 if (Config.LOG_WORLD)
                 {
-                    LogManager.LogWorld("Player [" + obj.AsPlayer().GetName() + "] Account [" + obj.AsPlayer().GetClient().GetAccountName() + "] Entered the world.");
+                    LogManager.LogWorld("Player [" + player.GetName() + "] Account [" + player.GetClient().GetAccountName() + "] Entered the world.");
                 }
             }
         }
@@ -112,18 +114,20 @@ public class WorldManager
         // Remove from list and take necessary actions.
         if (obj.IsPlayer())
         {
+            Player player = obj.AsPlayer();
+
             lock (PLAYER_OBJECTS)
             {
-                PLAYER_OBJECTS.Remove(obj.AsPlayer());
+                PLAYER_OBJECTS.Remove(player);
             }
 
             // Store player.
-            obj.AsPlayer().StoreMe();
+            player.StoreMe();
 
             // Log world access.
-            if (Config.LOG_WORLD && obj.AsPlayer().GetClient().GetActiveChar() != null)
+            if (Config.LOG_WORLD && player.GetClient().GetActiveChar() != null)
             {
-                LogManager.LogWorld("Player [" + obj.AsPlayer().GetName() + "] Account [" + obj.AsPlayer().GetClient().GetAccountName() + "] Left the world.");
+                LogManager.LogWorld("Player [" + player.GetName() + "] Account [" + player.GetClient().GetAccountName() + "] Left the world.");
             }
         }
 

@@ -119,6 +119,7 @@ public class WorldObject
         // Broadcast location to nearby players after teleporting.
         LocationUpdate locationUpdate = new LocationUpdate(this);
         List<Player> players = WorldManager.GetVisiblePlayers(this);
+        Player player = AsPlayer();
         for (int i = 0; i < players.Count; i++)
         {
             Player nearby = players[i];
@@ -128,7 +129,7 @@ public class WorldObject
             }
             if (IsPlayer())
             {
-                AsPlayer().ChannelSend(new LocationUpdate(nearby));
+                player.ChannelSend(new LocationUpdate(nearby));
             }
         }
     }
