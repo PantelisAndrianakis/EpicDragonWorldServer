@@ -48,7 +48,6 @@ public class Config
     public static int MAXIMUM_ONLINE_USERS;
     public static double CLIENT_VERSION;
     public static byte[] ENCRYPTION_SECRET_KEYWORD;
-    public static byte[] ENCRYPTION_PRIVATE_PASSWORD;
 
     // --------------------------------------------------
     // Player
@@ -92,7 +91,6 @@ public class Config
         MAXIMUM_ONLINE_USERS = networkConfigs.GetInt("MaximumOnlineUsers", 2000);
         CLIENT_VERSION = networkConfigs.GetDouble("ClientVersion", 1.0);
         ENCRYPTION_SECRET_KEYWORD = new MD5CryptoServiceProvider().ComputeHash(Encoding.UTF8.GetBytes(networkConfigs.GetString("SecretKeyword", "SECRET_KEYWORD")));
-        ENCRYPTION_PRIVATE_PASSWORD = Encoding.ASCII.GetBytes(networkConfigs.GetString("PrivatePassword", "1234567890123456"));
 
         ConfigReader playerConfigs = new ConfigReader(PLAYER_CONFIG_FILE);
         string[] startingLocation = playerConfigs.GetString("StartingLocation", "3924.109;67.42678;2329.238").Split(";");

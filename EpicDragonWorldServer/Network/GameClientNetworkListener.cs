@@ -92,7 +92,7 @@ public class GameClientNetworkListener
                 bufferData = new byte[length];
                 await networkStream.ReadAsync(bufferData, 0, length);
                 // Handle packet.
-                GameClientPacketHandler.Handle(gameClient, new ReceivablePacket(Encryption.Decrypt(bufferData)));
+                GameClientPacketHandler.Handle(gameClient, new ReceivablePacket(Encryption.Process(bufferData))); // Decrypt
             }
             catch (Exception)
             {
