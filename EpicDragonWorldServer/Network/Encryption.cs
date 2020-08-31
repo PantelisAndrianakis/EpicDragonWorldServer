@@ -1,7 +1,6 @@
 ﻿/**
- * AES Rijndael encryption.
  * Author: Pantelis Andrianakis
- * Date: December 23rd 2017
+ * Date: August 30th 2020
  */
 public class Encryption
 {
