@@ -10,23 +10,23 @@ public class Player : Creature
     private static readonly string RESTORE_CHARACTER = "SELECT * FROM characters WHERE name=@name";
     private static readonly string STORE_CHARACTER = "UPDATE characters SET name=@name, race=@race, x=@x, y=@y, z=@z, heading=@heading, experience=@experience, hp=@hp, mp=@mp WHERE account=@account AND name=@name";
 
-    private readonly GameClient client;
-    private readonly string name;
-    private readonly byte raceId;
-    private readonly float height;
-    private readonly float belly;
-    private readonly int hairType;
-    private readonly int hairColor;
-    private readonly int skinColor;
-    private readonly int eyeColor;
-    private readonly long experience;
-    private readonly byte accessLevel;
-    private readonly Inventory inventory;
+    private readonly GameClient _client;
+    private readonly string _name;
+    private readonly byte _raceId;
+    private readonly float _height;
+    private readonly float _belly;
+    private readonly int _hairType;
+    private readonly int _hairColor;
+    private readonly int _skinColor;
+    private readonly int _eyeColor;
+    private readonly long _experience;
+    private readonly byte _accessLevel;
+    private readonly Inventory _inventory;
 
     public Player(GameClient client, string name)
     {
-        this.client = client;
-        this.name = name;
+        _client = client;
+        _name = name;
 
         // Load information from database.
         try
@@ -37,13 +37,13 @@ public class Player : Creature
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                raceId = (byte)reader.GetInt16("race"); // TODO: Remove cast?
-                height = (float)reader.GetDouble("height"); // Fixes known MySQL float issue.
-                belly = (float)reader.GetDouble("belly"); // Fixes known MySQL float issue.
-                hairType = (byte)reader.GetInt16("hair_type"); // TODO: Remove cast?
-                hairColor = reader.GetInt32("hair_color");
-                skinColor = reader.GetInt32("skin_color");
-                eyeColor = reader.GetInt32("eye_color");
+                _raceId = (byte)reader.GetInt16("race"); // TODO: Remove cast?
+                _height = (float)reader.GetDouble("height"); // Fixes known MySQL float issue.
+                _belly = (float)reader.GetDouble("belly"); // Fixes known MySQL float issue.
+                _hairType = (byte)reader.GetInt16("hair_type"); // TODO: Remove cast?
+                _hairColor = reader.GetInt32("hair_color");
+                _skinColor = reader.GetInt32("skin_color");
+                _eyeColor = reader.GetInt32("eye_color");
 
                 float locX = (float)reader.GetDouble("x"); // Fixes known MySQL float issue.
                 float locY = (float)reader.GetDouble("y"); // Fixes known MySQL float issue.
@@ -60,10 +60,10 @@ public class Player : Creature
                     SetLocation(new LocationHolder(locX, locY, locZ, (float)reader.GetDouble("heading"))); // Fixes known MySQL float issue.
                 }
 
-                experience = reader.GetInt64("experience");
+                _experience = reader.GetInt64("experience");
                 SetCurrentHp(reader.GetInt64("hp"));
                 SetCurrentMp(reader.GetInt64("mp"));
-                accessLevel = (byte)reader.GetInt16("access_level"); // TODO: Remove cast?
+                _accessLevel = (byte)reader.GetInt16("access_level"); // TODO: Remove cast?
             }
             con.Close();
         }
@@ -73,7 +73,7 @@ public class Player : Creature
         }
 
         // Initialize inventory.
-        inventory = new Inventory(name);
+        _inventory = new Inventory(name);
     }
 
     public void StoreMe()
@@ -82,16 +82,16 @@ public class Player : Creature
         {
             MySqlConnection con = DatabaseManager.GetConnection();
             MySqlCommand cmd = new MySqlCommand(STORE_CHARACTER, con);
-            cmd.Parameters.AddWithValue("name", name);
-            cmd.Parameters.AddWithValue("race", raceId);
+            cmd.Parameters.AddWithValue("name", _name);
+            cmd.Parameters.AddWithValue("race", _raceId);
             cmd.Parameters.AddWithValue("x", GetLocation().GetX());
             cmd.Parameters.AddWithValue("y", GetLocation().GetY());
             cmd.Parameters.AddWithValue("z", GetLocation().GetZ());
             cmd.Parameters.AddWithValue("heading", GetLocation().GetHeading());
-            cmd.Parameters.AddWithValue("experience", experience);
+            cmd.Parameters.AddWithValue("experience", _experience);
             cmd.Parameters.AddWithValue("hp", GetCurrentHp());
             cmd.Parameters.AddWithValue("mp", GetCurrentMp());
-            cmd.Parameters.AddWithValue("account", client.GetAccountName());
+            cmd.Parameters.AddWithValue("account", _client.GetAccountName());
             cmd.ExecuteNonQuery();
             con.Close();
         }
@@ -101,72 +101,72 @@ public class Player : Creature
         }
 
         // Save inventory.
-        inventory.Store(name);
+        _inventory.Store(_name);
     }
 
     public GameClient GetClient()
     {
-        return client;
+        return _client;
     }
 
     public string GetName()
     {
-        return name;
+        return _name;
     }
 
     public int GetRaceId()
     {
-        return raceId;
+        return _raceId;
     }
 
     public float GetHeight()
     {
-        return height;
+        return _height;
     }
 
     public float GetBelly()
     {
-        return belly;
+        return _belly;
     }
 
     public int GetHairType()
     {
-        return hairType;
+        return _hairType;
     }
 
     public int GetHairColor()
     {
-        return hairColor;
+        return _hairColor;
     }
 
     public int GetSkinColor()
     {
-        return skinColor;
+        return _skinColor;
     }
 
     public int GetEyeColor()
     {
-        return eyeColor;
+        return _eyeColor;
     }
 
     public long GetExperience()
     {
-        return experience;
+        return _experience;
     }
 
     public byte GetAccessLevel()
     {
-        return accessLevel;
+        return _accessLevel;
     }
 
     public Inventory GetInventory()
     {
-        return inventory;
+        return _inventory;
     }
 
     public void ChannelSend(SendablePacket packet)
     {
-        client.ChannelSend(packet);
+        _client.ChannelSend(packet);
     }
 
     public override bool IsPlayer()
@@ -181,6 +181,6 @@ public class Player : Creature
 
     public override string ToString()
     {
-        return "Player [" + name + "]";
+        return "Player [" + _name + "]";
     }
 }

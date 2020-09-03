@@ -8,11 +8,11 @@ using System.Text;
  */
 public class ReceivablePacket
 {
-    private readonly MemoryStream memoryStream;
+    private readonly MemoryStream _memoryStream;
 
     public ReceivablePacket(byte[] bytes)
     {
-        memoryStream = new MemoryStream(bytes);
+        _memoryStream = new MemoryStream(bytes);
     }
 
     public string ReadString()
@@ -28,69 +28,69 @@ public class ReceivablePacket
         byte[] result = new byte[length];
         for (int i = 0; i < length; i++)
         {
-            result[i] = (byte)memoryStream.ReadByte();
+            result[i] = (byte)_memoryStream.ReadByte();
         }
         return result;
     }
 
     public int ReadByte()
     {
-        return memoryStream.ReadByte();
+        return _memoryStream.ReadByte();
     }
 
     public int ReadShort()
     {
         byte[] byteArray = new byte[2];
-        byteArray[0] = (byte)memoryStream.ReadByte();
-        byteArray[1] = (byte)memoryStream.ReadByte();
+        byteArray[0] = (byte)_memoryStream.ReadByte();
+        byteArray[1] = (byte)_memoryStream.ReadByte();
         return BitConverter.ToInt16(byteArray);
     }
 
     public int ReadInt()
     {
         byte[] byteArray = new byte[4];
-        byteArray[0] = (byte)memoryStream.ReadByte();
-        byteArray[1] = (byte)memoryStream.ReadByte();
-        byteArray[2] = (byte)memoryStream.ReadByte();
-        byteArray[3] = (byte)memoryStream.ReadByte();
+        byteArray[0] = (byte)_memoryStream.ReadByte();
+        byteArray[1] = (byte)_memoryStream.ReadByte();
+        byteArray[2] = (byte)_memoryStream.ReadByte();
+        byteArray[3] = (byte)_memoryStream.ReadByte();
         return BitConverter.ToInt32(byteArray);
     }
 
     public long ReadLong()
     {
         byte[] byteArray = new byte[8];
-        byteArray[0] = (byte)memoryStream.ReadByte();
-        byteArray[1] = (byte)memoryStream.ReadByte();
-        byteArray[2] = (byte)memoryStream.ReadByte();
-        byteArray[3] = (byte)memoryStream.ReadByte();
-        byteArray[4] = (byte)memoryStream.ReadByte();
-        byteArray[5] = (byte)memoryStream.ReadByte();
-        byteArray[6] = (byte)memoryStream.ReadByte();
-        byteArray[7] = (byte)memoryStream.ReadByte();
+        byteArray[0] = (byte)_memoryStream.ReadByte();
+        byteArray[1] = (byte)_memoryStream.ReadByte();
+        byteArray[2] = (byte)_memoryStream.ReadByte();
+        byteArray[3] = (byte)_memoryStream.ReadByte();
+        byteArray[4] = (byte)_memoryStream.ReadByte();
+        byteArray[5] = (byte)_memoryStream.ReadByte();
+        byteArray[6] = (byte)_memoryStream.ReadByte();
+        byteArray[7] = (byte)_memoryStream.ReadByte();
         return BitConverter.ToInt64(byteArray);
     }
 
     public float ReadFloat()
     {
         byte[] byteArray = new byte[4];
-        byteArray[0] = (byte)memoryStream.ReadByte();
-        byteArray[1] = (byte)memoryStream.ReadByte();
-        byteArray[2] = (byte)memoryStream.ReadByte();
-        byteArray[3] = (byte)memoryStream.ReadByte();
+        byteArray[0] = (byte)_memoryStream.ReadByte();
+        byteArray[1] = (byte)_memoryStream.ReadByte();
+        byteArray[2] = (byte)_memoryStream.ReadByte();
+        byteArray[3] = (byte)_memoryStream.ReadByte();
         return BitConverter.ToSingle(byteArray);
     }
 
     public double ReadDouble()
     {
         byte[] byteArray = new byte[8];
-        byteArray[0] = (byte)memoryStream.ReadByte();
-        byteArray[1] = (byte)memoryStream.ReadByte();
-        byteArray[2] = (byte)memoryStream.ReadByte();
-        byteArray[3] = (byte)memoryStream.ReadByte();
-        byteArray[4] = (byte)memoryStream.ReadByte();
-        byteArray[5] = (byte)memoryStream.ReadByte();
-        byteArray[6] = (byte)memoryStream.ReadByte();
-        byteArray[7] = (byte)memoryStream.ReadByte();
+        byteArray[0] = (byte)_memoryStream.ReadByte();
+        byteArray[1] = (byte)_memoryStream.ReadByte();
+        byteArray[2] = (byte)_memoryStream.ReadByte();
+        byteArray[3] = (byte)_memoryStream.ReadByte();
+        byteArray[4] = (byte)_memoryStream.ReadByte();
+        byteArray[5] = (byte)_memoryStream.ReadByte();
+        byteArray[6] = (byte)_memoryStream.ReadByte();
+        byteArray[7] = (byte)_memoryStream.ReadByte();
         return BitConverter.ToDouble(byteArray);
     }
 }

@@ -4,22 +4,22 @@
  */
 public class SpawnHolder
 {
-    private readonly LocationHolder location;
-    private readonly int respawnDelay;
+    private readonly LocationHolder _location;
+    private readonly int _respawnDelay;
 
     public SpawnHolder(LocationHolder location, int respawnDelay)
     {
-        this.location = location;
-        this.respawnDelay = respawnDelay;
+        _location = location;
+        _respawnDelay = respawnDelay;
     }
 
     public LocationHolder GetLocation()
     {
-        return location;
+        return _location;
     }
 
     public int GetRespawnDelay()
     {
-        return respawnDelay;
+        return _respawnDelay;
     }
 }

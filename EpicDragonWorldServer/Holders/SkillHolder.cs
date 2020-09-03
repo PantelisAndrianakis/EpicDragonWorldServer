@@ -4,57 +4,57 @@
  */
 public class SkillHolder
 {
-    private readonly int skillId;
-    private readonly int level;
-    private readonly SkillType skillType;
-    private readonly int reuse;
-    private readonly int range;
-    private readonly int param1;
-    private readonly int param2;
+    private readonly int _skillId;
+    private readonly int _level;
+    private readonly SkillType _skillType;
+    private readonly int _reuse;
+    private readonly int _range;
+    private readonly int _param1;
+    private readonly int _param2;
 
     public SkillHolder(int skillId, int level, SkillType skillType, int reuse, int range, int param1, int param2)
     {
-        this.skillId = skillId;
-        this.level = level;
-        this.skillType = skillType;
-        this.reuse = reuse;
-        this.range = range;
-        this.param1 = param1;
-        this.param2 = param2;
+        _skillId = skillId;
+        _level = level;
+        _skillType = skillType;
+        _reuse = reuse;
+        _range = range;
+        _param1 = param1;
+        _param2 = param2;
     }
 
     public int GetSkillId()
     {
-        return skillId;
+        return _skillId;
     }
 
     public int GetLevel()
     {
-        return level;
+        return _level;
     }
 
     public SkillType GetSkillType()
     {
-        return skillType;
+        return _skillType;
     }
 
     public int GetReuse()
     {
-        return reuse;
+        return _reuse;
     }
 
     public int GetRange()
     {
-        return range;
+        return _range;
     }
 
     public int GetParam1()
     {
-        return param1;
+        return _param1;
     }
 
     public int GetParam2()
     {
-        return param2;
+        return _param2;
     }
 }

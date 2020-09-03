@@ -6,29 +6,29 @@
  */
 public class RegionHolder
 {
-    private readonly int x;
-    private readonly int z;
-    private readonly List<WorldObject> objects = new List<WorldObject>();
-    private List<RegionHolder> surroundingRegions;
+    private readonly int _x;
+    private readonly int _z;
+    private readonly List<WorldObject> _objects = new List<WorldObject>();
+    private List<RegionHolder> _surroundingRegions;
 
     public RegionHolder(int x, int z)
     {
-        this.x = x;
-        this.z = z;
+        _x = x;
+        _z = z;
     }
 
     public void SetSurroundingRegions(List<RegionHolder> regions)
     {
-        surroundingRegions = regions;
+        _surroundingRegions = regions;
 
         // Make sure that this region is always first to improve bulk operations.
-        for (int i = 0; i < surroundingRegions.Count; i++)
+        for (int i = 0; i < _surroundingRegions.Count; i++)
         {
-            if (surroundingRegions[i] == this)
+            if (_surroundingRegions[i] == this)
             {
-                RegionHolder first = surroundingRegions[0];
-                surroundingRegions[0] = this;
-                surroundingRegions[i] = first;
+                RegionHolder first = _surroundingRegions[0];
+                _surroundingRegions[0] = this;
+                _surroundingRegions[i] = first;
                 break;
             }
         }
@@ -36,44 +36,44 @@ public class RegionHolder
 
     public List<RegionHolder> GetSurroundingRegions()
     {
-        return surroundingRegions;
+        return _surroundingRegions;
     }
 
     public void AddObject(WorldObject obj)
     {
-        lock (objects)
+        lock (_objects)
         {
-            objects.Remove(obj);
-            objects.Add(obj);
+            _objects.Remove(obj);
+            _objects.Add(obj);
         }
     }
 
     public void RemoveObject(WorldObject obj)
     {
-        lock (objects)
+        lock (_objects)
         {
-            objects.Remove(obj);
+            _objects.Remove(obj);
         }
     }
 
     public List<WorldObject> GetObjects()
     {
-        return objects;
+        return _objects;
     }
 
     public int GetX()
     {
-        return x;
+        return _x;
     }
 
     public int GetZ()
     {
-        return z;
+        return _z;
     }
 
     public override int GetHashCode()
     {
-        return x ^ z;
+        return _x ^ _z;
     }
 
     public override bool Equals(object obj)
@@ -83,11 +83,11 @@ public class RegionHolder
             return false;
         }
         RegionHolder region = ((RegionHolder)obj);
-        return x == region.GetX() && z == region.GetZ();
+        return _x == region.GetX() && _z == region.GetZ();
     }
 
     public override string ToString()
     {
-        return "Region [" + x + " " + z + "]";
+        return "Region [" + _x + " " + _z + "]";
     }
 }

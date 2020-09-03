@@ -44,7 +44,7 @@ public class ObjectInfoRequest
             AnimationHolder animations = obj.GetAnimations();
             if (animations != null)
             {
-                client.ChannelSend(new AnimatorUpdate(obj.GetObjectId(), animations.velocityX, animations.velocityZ, animations.triggerJump, animations.isInWater, animations.isGrounded));
+                client.ChannelSend(new AnimatorUpdate(obj.GetObjectId(), animations.GetVelocityX(), animations.GetVelocityZ(), animations.IsTriggerJump(), animations.IsInWater(), animations.IsGrounded()));
             }
         }
     }

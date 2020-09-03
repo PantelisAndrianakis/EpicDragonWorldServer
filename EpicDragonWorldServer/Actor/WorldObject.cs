@@ -9,57 +9,62 @@ using System.Threading.Tasks;
  */
 public class WorldObject
 {
-    private readonly long objectId = IdManager.GetNextId();
-    private readonly DateTime spawnTime = DateTime.Now;
-    private AnimationHolder animations = null;
-    private LocationHolder location = new LocationHolder(0, -1000, 0);
-    private RegionHolder region = null;
-    private bool isTeleporting = false;
+    private readonly long _objectId = IdManager.GetNextId();
+    private readonly DateTime _spawnTime = DateTime.Now;
+    private AnimationHolder _animations = null;
+    private LocationHolder _location = new LocationHolder(0, -1000, 0);
+    private RegionHolder _region = null;
+    private bool _isTeleporting = false;
 
     public long GetObjectId()
     {
-        return objectId;
+        return _objectId;
     }
 
     public DateTime GetSpawnTime()
     {
-        return spawnTime;
+        return _spawnTime;
     }
 
     public AnimationHolder GetAnimations()
     {
-        return animations;
+        return _animations;
     }
 
     public void SetAnimations(AnimationHolder animations)
     {
-        this.animations = animations;
+        _animations = animations;
     }
 
     public LocationHolder GetLocation()
     {
-        return location;
+        return _location;
+    }
+
+    public void SetLocation(LocationHolder location)
+    {
+        SetLocation(location.GetX(), location.GetY(), location.GetZ(), location.GetHeading());
     }
 
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public void SetLocation(LocationHolder location)
+    public void SetLocation(float posX, float posY, float posZ, float heading)
     {
-        this.location = location;
+        _location.Update(posX, posY, posZ, heading);
 
         // When changing location test for appropriate region.
         RegionHolder testRegion = WorldManager.GetRegion(this);
-        if (!testRegion.Equals(region))
+        if (!testRegion.Equals(_region))
         {
-            if (region != null)
+            if (_region != null)
             {
                 // Remove this object from the region.
-                region.RemoveObject(this);
+                _region.RemoveObject(this);
 
                 // Broadcast change to players left behind when teleporting.
-                if (isTeleporting)
+                if (_isTeleporting)
                 {
                     DeleteObject deleteObject = new DeleteObject(this);
-                    List<RegionHolder> regions = region.GetSurroundingRegions();
+                    List<RegionHolder> regions = _region.GetSurroundingRegions();
                     for (int i = 0; i < regions.Count; i++)
                     {
                         List<WorldObject> objects = regions[i].GetObjects();
@@ -80,8 +85,8 @@ public class WorldObject
             }
 
             // Assign new region.
-            region = testRegion;
-            region.AddObject(this);
+            _region = testRegion;
+            _region.AddObject(this);
 
             // Send visible NPC information.
             // TODO: Exclude known NPCs?
@@ -103,18 +108,18 @@ public class WorldObject
 
     public RegionHolder GetRegion()
     {
-        return region;
+        return _region;
     }
 
     public void SetTeleporting()
     {
-        isTeleporting = true;
+        _isTeleporting = true;
         Task.Delay(1000).ContinueWith(task => StopTeleporting());
     }
 
     private void StopTeleporting()
     {
-        isTeleporting = false;
+        _isTeleporting = false;
 
         // Broadcast location to nearby players after teleporting.
         LocationUpdate locationUpdate = new LocationUpdate(this);
@@ -136,17 +141,17 @@ public class WorldObject
 
     public bool IsTeleporting()
     {
-        return isTeleporting;
+        return _isTeleporting;
     }
 
     public void DeleteMe()
     {
         // Remove from region.
-        region.RemoveObject(this);
+        _region.RemoveObject(this);
 
         // Broadcast NPC deletion.
         DeleteObject delete = new DeleteObject(this);
-        List<RegionHolder> regions = region.GetSurroundingRegions();
+        List<RegionHolder> regions = _region.GetSurroundingRegions();
         for (int i = 0; i < regions.Count; i++)
         {
             List<WorldObject> objects = regions[i].GetObjects();
@@ -161,7 +166,7 @@ public class WorldObject
         }
 
         // Set region to null.
-        region = null;
+        _region = null;
     }
 
     /// <summary>Calculates distance between this WorldObject and given x, y , z.</summary>
@@ -171,7 +176,7 @@ public class WorldObject
     /// <returns>distance between object and given x, y, z.</returns>
     public double CalculateDistance(float x, float y, float z)
     {
-        return Math.Pow(x - location.GetX(), 2) + Math.Pow(y - location.GetY(), 2) + Math.Pow(z - location.GetZ(), 2);
+        return Math.Pow(x - _location.GetX(), 2) + Math.Pow(y - _location.GetY(), 2) + Math.Pow(z - _location.GetZ(), 2);
     }
 
     /// <summary>Calculates distance between this WorldObject and another WorldObject.</summary>
@@ -236,6 +241,6 @@ public class WorldObject
 
     public override string ToString()
     {
-        return "WorldObject [" + objectId + "]";
+        return "WorldObject [" + _objectId + "]";
     }
 }

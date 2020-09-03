@@ -1,16 +1,18 @@
-﻿/**
- * Author: Pantelis Andrianakis
- * Date: November 28th 2019
- */
+﻿
+using System;
+/**
+* Author: Pantelis Andrianakis
+* Date: November 28th 2019
+*/
 public class Npc : Creature
 {
-    private readonly NpcHolder npcHolder;
-    private readonly SpawnHolder spawnHolder;
+    private readonly NpcHolder _npcHolder;
+    private readonly SpawnHolder _spawnHolder;
 
     public Npc(NpcHolder npcHolder, SpawnHolder spawnHolder)
     {
-        this.npcHolder = npcHolder;
-        this.spawnHolder = spawnHolder;
+        _npcHolder = npcHolder;
+        _spawnHolder = spawnHolder;
 
         SetCurrentHp(npcHolder.GetHp());
         // TODO: Implement Creature stats holder.
@@ -19,12 +21,12 @@ public class Npc : Creature
 
     public NpcHolder GetNpcHolder()
     {
-        return npcHolder;
+        return _npcHolder;
     }
 
     public SpawnHolder GetSpawnHolder()
     {
-        return spawnHolder;
+        return _spawnHolder;
     }
 
     public override bool IsNpc()
@@ -39,6 +41,6 @@ public class Npc : Creature
 
     public override string ToString()
     {
-        return "NPC [" + npcHolder.GetNpcId() + "]";
+        return "NPC [" + _npcHolder.GetNpcId() + "]";
     }
 }

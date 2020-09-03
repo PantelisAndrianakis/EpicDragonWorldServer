@@ -10,12 +10,12 @@ using System.Linq;
  */
 public class ConfigReader
 {
-    private readonly Dictionary<string, string> configs = new Dictionary<string, string>();
-    private readonly string fileName;
+    private readonly Dictionary<string, string> _configs = new Dictionary<string, string>();
+    private readonly string _fileName;
 
     public ConfigReader(string fileName)
     {
-        this.fileName = fileName;
+        _fileName = fileName;
         try
         {
             string[] lines = File.ReadAllLines(fileName);
@@ -27,7 +27,7 @@ public class ConfigReader
                     string[] lineSplit = line.Split('=');
                     if (lineSplit.Length > 1)
                     {
-                        configs.Add(lineSplit[0].Trim(), string.Join("=", lineSplit.Skip(1).ToArray()).Trim());
+                        _configs.Add(lineSplit[0].Trim(), string.Join("=", lineSplit.Skip(1).ToArray()).Trim());
                     }
                 }
             }
@@ -40,105 +40,105 @@ public class ConfigReader
 
     public string GetString(string config, string defaultValue)
     {
-        if (!configs.ContainsKey(config))
+        if (!_configs.ContainsKey(config))
         {
-            LogManager.Log("Missing config " + config + " from file " + fileName + ". Default value " + defaultValue + " will be used instead.");
+            LogManager.Log("Missing config " + config + " from file " + _fileName + ". Default value " + defaultValue + " will be used instead.");
             return defaultValue;
         }
-        return configs[config];
+        return _configs[config];
     }
 
     public bool GetBool(string config, bool defaultValue)
     {
-        if (!configs.ContainsKey(config))
+        if (!_configs.ContainsKey(config))
         {
-            LogManager.Log("Missing config " + config + " from file " + fileName + ". Default value " + defaultValue + " will be used instead.");
+            LogManager.Log("Missing config " + config + " from file " + _fileName + ". Default value " + defaultValue + " will be used instead.");
             return defaultValue;
         }
 
         try
         {
-            return bool.Parse(configs[config]);
+            return bool.Parse(_configs[config]);
         }
         catch (Exception)
         {
-            LogManager.Log("Config " + config + " from file " + fileName + " should be Boolean. Using default value " + defaultValue + " instead.");
+            LogManager.Log("Config " + config + " from file " + _fileName + " should be Boolean. Using default value " + defaultValue + " instead.");
             return defaultValue;
         }
     }
 
     public int GetInt(string config, int defaultValue)
     {
-        if (!configs.ContainsKey(config))
+        if (!_configs.ContainsKey(config))
         {
-            LogManager.Log("Missing config " + config + " from file " + fileName + ". Default value " + defaultValue + " will be used instead.");
+            LogManager.Log("Missing config " + config + " from file " + _fileName + ". Default value " + defaultValue + " will be used instead.");
             return defaultValue;
         }
 
         try
         {
-            return int.Parse(configs[config]);
+            return int.Parse(_configs[config]);
         }
         catch (Exception)
         {
-            LogManager.Log("Config " + config + " from file " + fileName + " should be Integer. Using default value " + defaultValue + " instead.");
+            LogManager.Log("Config " + config + " from file " + _fileName + " should be Integer. Using default value " + defaultValue + " instead.");
             return defaultValue;
         }
     }
 
     public long GetLong(string config, long defaultValue)
     {
-        if (!configs.ContainsKey(config))
+        if (!_configs.ContainsKey(config))
         {
-            LogManager.Log("Missing config " + config + " from file " + fileName + ". Default value " + defaultValue + " will be used instead.");
+            LogManager.Log("Missing config " + config + " from file " + _fileName + ". Default value " + defaultValue + " will be used instead.");
             return defaultValue;
         }
 
         try
         {
-            return long.Parse(configs[config]);
+            return long.Parse(_configs[config]);
         }
         catch (Exception)
         {
-            LogManager.Log("Config " + config + " from file " + fileName + " should be Long. Using default value " + defaultValue + " instead.");
+            LogManager.Log("Config " + config + " from file " + _fileName + " should be Long. Using default value " + defaultValue + " instead.");
             return defaultValue;
         }
     }
 
     public float GetFloat(string config, float defaultValue)
     {
-        if (!configs.ContainsKey(config))
+        if (!_configs.ContainsKey(config))
         {
-            LogManager.Log("Missing config " + config + " from file " + fileName + ". Default value " + defaultValue + " will be used instead.");
+            LogManager.Log("Missing config " + config + " from file " + _fileName + ". Default value " + defaultValue + " will be used instead.");
             return defaultValue;
         }
 
         try
         {
-            return float.Parse(configs[config], CultureInfo.InvariantCulture);
+            return float.Parse(_configs[config], CultureInfo.InvariantCulture);
         }
         catch (Exception)
         {
-            LogManager.Log("Config " + config + " from file " + fileName + " should be Float. Using default value " + defaultValue + " instead.");
+            LogManager.Log("Config " + config + " from file " + _fileName + " should be Float. Using default value " + defaultValue + " instead.");
             return defaultValue;
         }
     }
 
     public double GetDouble(string config, double defaultValue)
     {
-        if (!configs.ContainsKey(config))
+        if (!_configs.ContainsKey(config))
         {
-            LogManager.Log("Missing config " + config + " from file " + fileName + ". Default value " + defaultValue + " will be used instead.");
+            LogManager.Log("Missing config " + config + " from file " + _fileName + ". Default value " + defaultValue + " will be used instead.");
             return defaultValue;
         }
 
         try
         {
-            return double.Parse(configs[config], CultureInfo.InvariantCulture);
+            return double.Parse(_configs[config], CultureInfo.InvariantCulture);
         }
         catch (Exception)
         {
-            LogManager.Log("Config " + config + " from file " + fileName + " should be Double. Using default value " + defaultValue + " instead.");
+            LogManager.Log("Config " + config + " from file " + _fileName + " should be Double. Using default value " + defaultValue + " instead.");
             return defaultValue;
         }
     }

@@ -12,11 +12,11 @@ public class Inventory
     private static readonly string RESTORE_INVENTORY = "SELECT * FROM character_items WHERE owner=@owner";
     private static readonly string DELETE_INVENTORY = "DELETE FROM character_items WHERE owner=@owner";
     private static readonly string STORE_ITEM_START = "INSERT INTO character_items VALUES ";
-    private readonly Dictionary<int, ItemHolder> items = new Dictionary<int, ItemHolder>();
+    private readonly Dictionary<int, ItemHolder> _items = new Dictionary<int, ItemHolder>();
 
     public Inventory(string ownerName)
     {
-        lock (items)
+        lock (_items)
         {
             // Restore information from database.
             try
@@ -30,7 +30,7 @@ public class Inventory
                     ItemHolder itemHolder = new ItemHolder(ItemData.GetItemTemplate(reader.GetInt32("item_id")));
                     itemHolder.SetQuantity(reader.GetInt32("quantity"));
                     itemHolder.SetEnchant(reader.GetInt32("enchant"));
-                    items.Add(reader.GetInt32("slot_id"), itemHolder);
+                    _items.Add(reader.GetInt32("slot_id"), itemHolder);
                 }
                 con.Close();
             }
@@ -59,7 +59,7 @@ public class Inventory
         }
 
         // No need to store if item list is empty.
-        int itemCount = items.Count;
+        int itemCount = _items.Count;
         if (itemCount == 0)
         {
             return;
@@ -67,7 +67,7 @@ public class Inventory
 
         // Prepare query.
         StringBuilder query = new StringBuilder(STORE_ITEM_START);
-        foreach (KeyValuePair<int, ItemHolder> item in items)
+        foreach (KeyValuePair<int, ItemHolder> item in _items)
         {
             query.Append("('");
             query.Append(ownerName);
@@ -101,40 +101,40 @@ public class Inventory
 
     public ItemHolder GetSlot(int slotId)
     {
-        if (!items.ContainsKey(slotId))
+        if (!_items.ContainsKey(slotId))
         {
             return null;
         }
-        return items[slotId];
+        return _items[slotId];
     }
 
     public int GetItemIdBySlot(int slotId)
     {
-        if (!items.ContainsKey(slotId))
+        if (!_items.ContainsKey(slotId))
         {
             return 0;
         }
-        return items[slotId].GetTemplate().GetItemId();
+        return _items[slotId].GetTemplate().GetItemId();
     }
 
     public void SetSlot(int slotId, int itemId)
     {
-        lock (items)
+        lock (_items)
         {
-            items.Add(slotId, new ItemHolder(ItemData.GetItemTemplate(itemId)));
+            _items.Add(slotId, new ItemHolder(ItemData.GetItemTemplate(itemId)));
         }
     }
 
     public void RemoveSlot(int slotId)
     {
-        lock (items)
+        lock (_items)
         {
-            items.Remove(slotId);
+            _items.Remove(slotId);
         }
     }
 
     public Dictionary<int, ItemHolder> GetItems()
     {
-        return items;
+        return _items;
     }
 }

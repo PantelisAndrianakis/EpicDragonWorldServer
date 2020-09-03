@@ -4,279 +4,279 @@
  */
 public class CharacterDataHolder
 {
-    private string name = "";
-    private byte slot = 0;
-    private bool selected = false;
-    private byte race = 0;
-    private float height = 0.5f;
-    private float belly = 0.5f;
-    private int hairType = 0;
-    private int hairColor = 2695723;
-    private int skinColor = 15847869;
-    private int eyeColor = 2695723;
-    private int headItem = 0;
-    private int chestItem = 0;
-    private int handsItem = 0;
-    private int legsItem = 0;
-    private int feetItem = 0;
-    private int rightHandItem = 0;
-    private int leftHandItem = 0;
-    private float x = 0;
-    private float y = 0;
-    private float z = 0;
-    private float heading = 0;
-    private long experience = 0;
-    private long hp = 0;
-    private long mp = 0;
-    private byte accessLevel = 0;
+    private string _name = "";
+    private byte _slot = 0;
+    private bool _selected = false;
+    private byte _race = 0;
+    private float _height = 0.5f;
+    private float _belly = 0.5f;
+    private int _hairType = 0;
+    private int _hairColor = 2695723;
+    private int _skinColor = 15847869;
+    private int _eyeColor = 2695723;
+    private int _headItem = 0;
+    private int _chestItem = 0;
+    private int _handsItem = 0;
+    private int _legsItem = 0;
+    private int _feetItem = 0;
+    private int _rightHandItem = 0;
+    private int _leftHandItem = 0;
+    private float _x = 0;
+    private float _y = 0;
+    private float _z = 0;
+    private float _heading = 0;
+    private long _experience = 0;
+    private long _hp = 0;
+    private long _mp = 0;
+    private byte _accessLevel = 0;
 
     public string GetName()
     {
-        return name;
+        return _name;
     }
 
     public void SetName(string name)
     {
-        this.name = name;
+        _name = name;
     }
 
     public byte GetSlot()
     {
-        return slot;
+        return _slot;
     }
 
     public void SetSlot(byte slot)
     {
-        this.slot = slot;
+        _slot = slot;
     }
 
     public bool IsSelected()
     {
-        return selected;
+        return _selected;
     }
 
     public void SetSelected(bool selected)
     {
-        this.selected = selected;
+        _selected = selected;
     }
 
     public byte GetRace()
     {
-        return race;
+        return _race;
     }
 
     public void SetRace(byte race)
     {
-        this.race = race;
+        _race = race;
     }
 
     public float GetHeight()
     {
-        return height;
+        return _height;
     }
 
     public void SetHeight(float height)
     {
-        this.height = height;
+        _height = height;
     }
 
     public float GetBelly()
     {
-        return belly;
+        return _belly;
     }
 
     public void SetBelly(float belly)
     {
-        this.belly = belly;
+        _belly = belly;
     }
 
     public int GetHairType()
     {
-        return hairType;
+        return _hairType;
     }
 
     public void SetHairType(int hairType)
     {
-        this.hairType = hairType;
+        _hairType = hairType;
     }
 
     public int GetHairColor()
     {
-        return hairColor;
+        return _hairColor;
     }
 
     public void SetHairColor(int hairColor)
     {
-        this.hairColor = hairColor;
+        _hairColor = hairColor;
     }
 
     public int GetSkinColor()
     {
-        return skinColor;
+        return _skinColor;
     }
 
     public void SetSkinColor(int skinColor)
     {
-        this.skinColor = skinColor;
+        _skinColor = skinColor;
     }
 
     public int GetEyeColor()
     {
-        return eyeColor;
+        return _eyeColor;
     }
 
     public void SetEyeColor(int eyeColor)
     {
-        this.eyeColor = eyeColor;
+        _eyeColor = eyeColor;
     }
 
     public int GetHeadItem()
     {
-        return headItem;
+        return _headItem;
     }
 
     public void SetHeadItem(int headItem)
     {
-        this.headItem = headItem;
+        _headItem = headItem;
     }
 
     public int GetChestItem()
     {
-        return chestItem;
+        return _chestItem;
     }
 
     public void SetChestItem(int chestItem)
     {
-        this.chestItem = chestItem;
+        _chestItem = chestItem;
     }
 
     public int GetHandsItem()
     {
-        return handsItem;
+        return _handsItem;
     }
 
     public void SetHandsItem(int handsItem)
     {
-        this.handsItem = handsItem;
+        _handsItem = handsItem;
     }
 
     public int GetLegsItem()
     {
-        return legsItem;
+        return _legsItem;
     }
 
     public void SetLegsItem(int legsItem)
     {
-        this.legsItem = legsItem;
+        _legsItem = legsItem;
     }
 
     public int GetFeetItem()
     {
-        return feetItem;
+        return _feetItem;
     }
 
     public void SetFeetItem(int feetItem)
     {
-        this.feetItem = feetItem;
+        _feetItem = feetItem;
     }
 
     public int GetRightHandItem()
     {
-        return rightHandItem;
+        return _rightHandItem;
     }
 
     public void SetRightHandItem(int rightHandItem)
     {
-        this.rightHandItem = rightHandItem;
+        _rightHandItem = rightHandItem;
     }
 
     public int GetLeftHandItem()
     {
-        return leftHandItem;
+        return _leftHandItem;
     }
 
     public void SetLeftHandItem(int leftHandItem)
     {
-        this.leftHandItem = leftHandItem;
+        _leftHandItem = leftHandItem;
     }
 
     public float GetX()
     {
-        return x;
+        return _x;
     }
 
     public void SetX(float x)
     {
-        this.x = x;
+        _x = x;
     }
 
     public float GetY()
     {
-        return y;
+        return _y;
     }
 
     public void SetY(float y)
     {
-        this.y = y;
+        _y = y;
     }
 
     public float GetZ()
     {
-        return z;
+        return _z;
     }
 
     public void SetZ(float z)
     {
-        this.z = z;
+        _z = z;
     }
 
     public float GetHeading()
     {
-        return heading;
+        return _heading;
     }
 
     public void SetHeading(float heading)
     {
-        this.heading = heading;
+        _heading = heading;
     }
 
     public long GetExperience()
     {
-        return experience;
+        return _experience;
     }
 
     public void SetExperience(long experience)
     {
-        this.experience = experience;
+        _experience = experience;
     }
 
     public long GetHp()
     {
-        return hp;
+        return _hp;
     }
 
     public void SetHp(long hp)
     {
-        this.hp = hp;
+        _hp = hp;
     }
 
     public long GetMp()
     {
-        return mp;
+        return _mp;
     }
 
     public void SetMp(long mp)
     {
-        this.mp = mp;
+        _mp = mp;
     }
 
     public byte GetAccessLevel()
     {
-        return accessLevel;
+        return _accessLevel;
     }
 
     public void SetAccessLevel(byte accessLevel)
     {
-        this.accessLevel = accessLevel;
+        _accessLevel = accessLevel;
     }
 }

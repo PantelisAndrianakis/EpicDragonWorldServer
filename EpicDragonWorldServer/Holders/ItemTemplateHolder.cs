@@ -4,78 +4,78 @@
  */
 public class ItemTemplateHolder
 {
-    private readonly int itemId;
-    private readonly ItemSlot itemSlot;
-    private readonly ItemType itemType;
-    private readonly bool stackable;
-    private readonly bool tradable;
-    private readonly int stamina;
-    private readonly int strength;
-    private readonly int dexterity;
-    private readonly int intelect;
-    private readonly SkillHolder skillHolder;
+    private readonly int _itemId;
+    private readonly ItemSlot _itemSlot;
+    private readonly ItemType _itemType;
+    private readonly bool _stackable;
+    private readonly bool _tradable;
+    private readonly int _stamina;
+    private readonly int _strength;
+    private readonly int _dexterity;
+    private readonly int _intelect;
+    private readonly SkillHolder _skillHolder;
 
     public ItemTemplateHolder(int itemId, ItemSlot itemSlot, ItemType itemType, bool stackable, bool tradable, int stamina, int strength, int dexterity, int intelect, SkillHolder skillHolder)
     {
-        this.itemId = itemId;
-        this.itemSlot = itemSlot;
-        this.itemType = itemType;
-        this.stackable = stackable;
-        this.tradable = tradable;
-        this.stamina = stamina;
-        this.strength = strength;
-        this.dexterity = dexterity;
-        this.intelect = intelect;
-        this.skillHolder = skillHolder;
+        _itemId = itemId;
+        _itemSlot = itemSlot;
+        _itemType = itemType;
+        _stackable = stackable;
+        _tradable = tradable;
+        _stamina = stamina;
+        _strength = strength;
+        _dexterity = dexterity;
+        _intelect = intelect;
+        _skillHolder = skillHolder;
     }
 
     public int GetItemId()
     {
-        return itemId;
+        return _itemId;
     }
 
     public ItemSlot GetItemSlot()
     {
-        return itemSlot;
+        return _itemSlot;
     }
 
     public ItemType GetItemType()
     {
-        return itemType;
+        return _itemType;
     }
 
     public bool IsStackable()
     {
-        return stackable;
+        return _stackable;
     }
 
     public bool IsTradable()
     {
-        return tradable;
+        return _tradable;
     }
 
     public int GetSTA()
     {
-        return stamina;
+        return _stamina;
     }
 
     public int GetSTR()
     {
-        return strength;
+        return _strength;
     }
 
     public int GetDEX()
     {
-        return dexterity;
+        return _dexterity;
     }
 
     public int GetINT()
     {
-        return intelect;
+        return _intelect;
     }
 
     public SkillHolder GetSkillHolder()
     {
-        return skillHolder;
+        return _skillHolder;
     }
 }

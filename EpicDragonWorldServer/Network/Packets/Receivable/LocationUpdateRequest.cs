@@ -36,7 +36,7 @@ public class LocationUpdateRequest
         }
 
         // Update player location.
-        player.SetLocation(new LocationHolder(posX, posY, posZ, heading));
+        player.SetLocation(posX, posY, posZ, heading);
 
         // Broadcast movement.
         LocationUpdate locationUpdate = new LocationUpdate(player);

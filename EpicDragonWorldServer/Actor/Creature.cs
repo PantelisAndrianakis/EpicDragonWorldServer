@@ -4,9 +4,9 @@
  */
 public class Creature : WorldObject
 {
-    private long currentHp = 0;
-    private long currentMp = 0;
-    private WorldObject target;
+    private long _currentHp = 0;
+    private long _currentMp = 0;
+    private WorldObject _target;
 
     // TODO: Implement Player level data.
     // TODO: Implement Creature stats holder.
@@ -17,32 +17,32 @@ public class Creature : WorldObject
 
     public void SetCurrentHp(long value)
     {
-        currentHp = value;
+        _currentHp = value;
     }
 
     public long GetCurrentHp()
     {
-        return currentHp;
+        return _currentHp;
     }
 
     public void SetCurrentMp(long value)
     {
-        currentMp = value;
+        _currentMp = value;
     }
 
     public long GetCurrentMp()
     {
-        return currentMp;
+        return _currentMp;
     }
 
     public void SetTarget(WorldObject worldObject)
     {
-        target = worldObject;
+        _target = worldObject;
     }
 
     public WorldObject GetTarget()
     {
-        return target;
+        return _target;
     }
 
     public override bool IsCreature()

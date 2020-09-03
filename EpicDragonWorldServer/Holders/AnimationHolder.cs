@@ -4,18 +4,43 @@
  */
 public class AnimationHolder
 {
-    public readonly float velocityX;
-    public readonly float velocityZ;
-    public readonly bool triggerJump;
-    public readonly bool isInWater;
-    public readonly bool isGrounded;
+    private readonly float _velocityX;
+    private readonly float _velocityZ;
+    private readonly bool _triggerJump;
+    private readonly bool _isInWater;
+    private readonly bool _isGrounded;
 
     public AnimationHolder(float velocityX, float velocityZ, bool triggerJump, bool isInWater, bool isGrounded)
     {
-        this.velocityX = velocityX;
-        this.velocityZ = velocityZ;
-        this.triggerJump = triggerJump;
-        this.isInWater = isInWater;
-        this.isGrounded = isGrounded;
+        _velocityX = velocityX;
+        _velocityZ = velocityZ;
+        _triggerJump = triggerJump;
+        _isInWater = isInWater;
+        _isGrounded = isGrounded;
+    }
+
+    public float GetVelocityX()
+    {
+        return _velocityX;
+    }
+
+    public float GetVelocityZ()
+    {
+        return _velocityZ;
+    }
+
+    public bool IsTriggerJump()
+    {
+        return _triggerJump;
+    }
+
+    public bool IsInWater()
+    {
+        return _isInWater;
+    }
+
+    public bool IsGrounded()
+    {
+        return _isGrounded;
     }
 }

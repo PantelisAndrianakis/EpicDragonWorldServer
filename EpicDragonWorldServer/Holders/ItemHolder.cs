@@ -4,37 +4,37 @@
  */
 public class ItemHolder
 {
-    private readonly ItemTemplateHolder itemTemplate;
-    private int quantity = 1;
-    private int enchant = 0;
+    private readonly ItemTemplateHolder _itemTemplate;
+    private int _quantity = 1;
+    private int _enchant = 0;
 
     public ItemHolder(ItemTemplateHolder itemTemplate)
     {
-        this.itemTemplate = itemTemplate;
+        _itemTemplate = itemTemplate;
     }
 
     public ItemTemplateHolder GetTemplate()
     {
-        return itemTemplate;
+        return _itemTemplate;
     }
 
     public void SetQuantity(int quantity)
     {
-        this.quantity = quantity;
+        _quantity = quantity;
     }
 
     public int GetQuantity()
     {
-        return quantity;
+        return _quantity;
     }
 
     public void SetEnchant(int enchant)
     {
-        this.enchant = enchant;
+        _enchant = enchant;
     }
 
     public int GetEnchant()
     {
-        return enchant;
+        return _enchant;
     }
 }

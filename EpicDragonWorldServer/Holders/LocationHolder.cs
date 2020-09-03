@@ -2,72 +2,80 @@
  * Author: Pantelis Andrianakis
  * Date: November 7th 2018
  */
-public class LocationHolder
+public struct LocationHolder
 {
-    float x;
-    float y;
-    float z;
-    float heading;
+    float _x;
+    float _y;
+    float _z;
+    float _heading;
 
     public LocationHolder(float x, float y, float z)
     {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        heading = 0;
+        _x = x;
+        _y = y;
+        _z = z;
+        _heading = 0;
     }
 
     public LocationHolder(float x, float y, float z, float heading)
     {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.heading = heading;
+        _x = x;
+        _y = y;
+        _z = z;
+        _heading = heading;
     }
 
     public float GetX()
     {
-        return x;
+        return _x;
     }
 
     public void SetX(float x)
     {
-        this.x = x;
+        _x = x;
     }
 
     public float GetY()
     {
-        return y;
+        return _y;
     }
 
     public void SetY(float y)
     {
-        this.y = y;
+        _y = y;
     }
 
     public float GetZ()
     {
-        return z;
+        return _z;
     }
 
     public void SetZ(float z)
     {
-        this.z = z;
+        _z = z;
     }
 
     public float GetHeading()
     {
-        return heading;
+        return _heading;
     }
 
     public void SetHeading(float heading)
     {
-        this.heading = heading;
+        _heading = heading;
+    }
+
+    public void Update(float x, float y, float z, float heading)
+    {
+        _x = x;
+        _y = y;
+        _z = z;
+        _heading = heading;
     }
 
     public override string ToString()
     {
-        string result = x + " " + y + " " + z;
-        return "Location [" + (heading > 0 ? result + " " + heading : result) + "]";
+        string result = _x + " " + _y + " " + _z;
+        return "Location [" + (_heading > 0 ? result + " " + _heading : result) + "]";
     }
 }

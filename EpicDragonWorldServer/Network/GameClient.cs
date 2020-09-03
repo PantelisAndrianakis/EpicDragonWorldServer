@@ -7,25 +7,25 @@ using System.Net.Sockets;
  */
 public class GameClient
 {
-    private readonly NetworkStream networkStream;
-    private readonly string ip;
-    private string accountName = "";
-    private Player activeChar;
+    private readonly NetworkStream _networkStream;
+    private readonly string _ip;
+    private string _accountName = "";
+    private Player _activeChar;
 
     public GameClient(NetworkStream stream, string address)
     {
-        networkStream = stream;
+        _networkStream = stream;
         // Clean IP address.
-        ip = address.Substring(0, address.LastIndexOf(']'));
-        int start = ip.LastIndexOf(':') + 1;
-        ip = ip.Substring(start, ip.Length - start);
+        _ip = address.Substring(0, address.LastIndexOf(']'));
+        int start = _ip.LastIndexOf(':') + 1;
+        _ip = _ip.Substring(start, _ip.Length - start);
     }
 
     public async void ChannelSend(SendablePacket packet)
     {
         try
         {
-            await networkStream.WriteAsync(packet.GetSendableBytes());
+            await _networkStream.WriteAsync(packet.GetSendableBytes());
         }
         catch (Exception)
         {
@@ -35,26 +35,26 @@ public class GameClient
 
     public string GetIp()
     {
-        return ip;
+        return _ip;
     }
 
     public string GetAccountName()
     {
-        return accountName;
+        return _accountName;
     }
 
     public void SetAccountName(string name)
     {
-        accountName = name;
+        _accountName = name;
     }
 
     public Player GetActiveChar()
     {
-        return activeChar;
+        return _activeChar;
     }
 
     public void SetActiveChar(Player activeChar)
     {
-        this.activeChar = activeChar;
+        _activeChar = activeChar;
     }
 }
